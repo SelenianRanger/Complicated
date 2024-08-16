@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WatchFace width="450" height="450">
+    <Metadata key="CLOCK_TYPE" value="DIGITAL"/>
+    <Scene>
+        // ACTIVE DISPLAY
+        // -----------------------------------------------------------------------------------------
+        <Group name="Active" x="0" y="0" width="450" height="450">
+            <Variant mode="AMBIENT" target="alpha" value="0"/>
+
+            // Background
+            <PartImage x="0" y="0"  width="450" height="450">
+                <Image resource="bg_dots"/>
+            </PartImage>
+            // Mid Lines
+            <PartImage x="0" y="60" width="450" height="450">
+                <Image resource="mid_lines"/>
+            </PartImage>
+
+            // Second Hand
+            <SecondHand resource="hand_second" x="0" y="0" width="450" height="450">
+                <Sweep frequency="SYNC_TO_DEVICE"/>
+            </SecondHand>
+
+            // Hour
+            <PartText x="50" y="110" width="220" height="220">
+                <Text>
+                    <Font family="oswald_light" size="180" color="#FF111111" weight="BOLD">
+                        <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <Group name="HH" x="0" y="0" width="450" height="450">
+                <PartText x="50" y="110" width="220" height="220" renderMode="MASK">
+                    <Text>
+                        <Font family="oswald_light" size="180" color="#FFFFFFFF" weight="BOLD">
+                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
+            </Group>
+
+            // Minute
+            <PartText x="230" y="205" width="110" height="110">
+                <Text>
+                    <Font family="oswald_light" size="90" color="#FFD4D4D4">
+                        <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
+                    </Font>
+                </Text>
+            </PartText>
+
+            // AM/PM
+            <Condition>
+                <Expressions>
+                    <Expression name="Is_AM">[AMPM_STATE] == 0</Expression>
+                </Expressions>
+                <Compare expression="Is_AM">
+                    <PartText x="330" y="215" width="60" height="60">
+                        <Text>
+                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="BOLD">AM</Font>
+                        </Text>
+                    </PartText>
+                </Compare>
+                <Default>
+                    <PartText x="330" y="257" width="60" height="60">
+                        <Text>
+                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="BOLD">PM</Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
+
+            // Date
+            <PartText x="230" y="150" width="110" height="50">
+                <Font family="roboto_light" size="24" color="#FFFFFFFF" weight="BOLD">
+                    <Upper>
+                        <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
+                    </Upper>
+                </Font>
+            </PartText>
+            <PartText x="230" y="175" width="110" height="50">
+                <Font family="roboto_light" size="24" color="#FFFFFFFF" weight="BOLD">
+                    <Upper>
+                        <Template>%s %s
+                            <Parameter expression="[MONTH_S]"/>
+                            <Parameter expression="[DAY_Z]"/>
+                        </Template>
+                    </Upper>
+                </Font>
+            </PartText>
+
+            // Foreground
+            <PartImage x="0" y="0"  width="450" height="450">
+                <Image resource="mid_hole"/>
+            </PartImage>
+
+        </Group>
+
+        // ALWAYS ON DISPLAY
+        // -----------------------------------------------------------------------------------------
+        <Group name="AOD" x="0" y="0" width="450" height="450" alpha="0">
+            <Variant mode="AMBIENT" target="alpha" value="255"/>
+
+            // Hour
+            <PartText x="50" y="110" width="220" height="220">
+                <Text>
+                    <Font family="oswald_light" size="180" color="#00000000" weight="BOLD">
+                        <Outline color="#FF333333" size="1">
+                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                        </Outline>
+                    </Font>
+                </Text>
+            </PartText>
+            <Group name="HH_AOD" x="0" y="0" width="450" height="450">
+                <PartText x="50" y="110" width="220" height="220" renderMode="MASK">
+                    <Text>
+                        <Font family="oswald_light" size="180" color="#00000000" weight="BOLD">
+                            <Outline color="#FFFFFFFF" size="1">
+                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                            </Outline>
+                        </Font>
+                    </Text>
+                </PartText>
+                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
+            </Group>
+
+            // Minute
+            <PartText x="230" y="205" width="110" height="110">
+                <Text>
+                    <Font family="oswald_light" size="90" color="#00000000">
+                        <Outline color="#FF888888" size="1">
+                            <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
+                        </Outline>
+                    </Font>
+                </Text>
+            </PartText>
+
+            // AM/PM
+            <Condition>
+                <Expressions>
+                    <Expression name="Is_AM">[AMPM_STATE] == 0</Expression>
+                </Expressions>
+                <Compare expression="Is_AM">
+                    <PartText x="330" y="215" width="60" height="60">
+                        <Text>
+                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="LIGHT">AM</Font>
+                        </Text>
+                    </PartText>
+                </Compare>
+                <Default>
+                    <PartText x="330" y="257" width="60" height="60">
+                        <Text>
+                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="LIGHT">PM</Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
+
+            // Date
+            <PartText x="230" y="150" width="110" height="50">
+                <Font family="roboto_light" size="24" color="#FFD4D4D4" weight="LIGHT">
+                    <Upper>
+                        <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
+                    </Upper>
+                </Font>
+            </PartText>
+            <PartText x="230" y="175" width="110" height="50">
+                <Font family="roboto_light" size="24" color="#FFD4D4D4" weight="LIGHT">
+                    <Upper>
+                        <Template>%s %s
+                            <Parameter expression="[MONTH_S]"/>
+                            <Parameter expression="[DAY_Z]"/>
+                        </Template>
+                    </Upper>
+                </Font>
+            </PartText>
+
+        </Group>
+    </Scene>
+</WatchFace>
