@@ -75,18 +75,68 @@
             </PartDraw>
 
             // Index Behind
-            <SecondHand resource="index" x="0" y="0" width="450" height="450">
-                <Tick duration="0" strength="0"/>
-                <Transform target="alpha" value="255 - [MILLISECOND]/1000*191"/>
-            </SecondHand>
+            <Group name="Index_Behind" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="255 - [MILLISECOND]/1000*128"/>
+                <SecondHand resource="" x="0" y="0" width="450" height="450">
+                    <Tick duration="0" strength="0"/>
+                    <PartDraw x="0" y="0" width="450" height="450">
+                        <Line startX="225" startY="15" endX="225" endY="0">
+                            <Stroke color="#FFD4D4D4" thickness="2"/>
+                            <Transform target="startY" value="[SECOND] % 5 == 0 ? 30 : 15"/>
+                        </Line>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="450" height="450" angle="-6">
+                        <Line startX="225" startY="15" endX="225" endY="0">
+                            <Stroke color="#88D4D4D4" thickness="2"/>
+                            <Transform target="startY" value="([SECOND] - 1) % 5 == 0 ? 30 : 15"/>
+                        </Line>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="450" height="450" angle="-12">
+                        <Line startX="225" startY="15" endX="225" endY="0">
+                            <Stroke color="#44D4D4D4" thickness="2"/>
+                            <Transform target="startY" value="([SECOND] - 2) % 5 == 0 ? 30 : 15"/>
+                        </Line>
+                    </PartDraw>
+                </SecondHand>
+            </Group>
             // Index Forward
-            <SecondHand resource="index2" x="0" y="0" width="450" height="450" alpha="64">
-                <Tick duration="0" strength="0"/>
-                <Transform target="alpha" value="64 + [MILLISECOND]/1000*191"/>
-            </SecondHand>
+            <Group name="Index_Forward" x="0" y="0" width="450" height="450" alpha="128">
+                <Transform target="alpha" value="128 + [MILLISECOND]/1000*128"/>
+                <SecondHand resource="" x="0" y="0" width="450" height="450">
+                    <Tick duration="0" strength="0"/>
+                    <PartDraw x="0" y="0" width="450" height="450" angle="6">
+                        <Line startX="225" startY="15" endX="225" endY="0">
+                            <Stroke color="#FFD4D4D4" thickness="2"/>
+                            <Transform target="startY" value="([SECOND] + 1) % 5 == 0 ? 30 : 15"/>
+                        </Line>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="450" height="450" angle="12">
+                        <Line startX="225" startY="15" endX="225" endY="0">
+                            <Stroke color="#88D4D4D4" thickness="2"/>
+                            <Transform target="startY" value="([SECOND] + 2) % 5 == 0 ? 30 : 15"/>
+                        </Line>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="450" height="450" angle="18">
+                        <Line startX="225" startY="15" endX="225" endY="0">
+                            <Stroke color="#44D4D4D4" thickness="2"/>
+                            <Transform target="startY" value="([SECOND] + 3) % 5 == 0 ? 30 : 15"/>
+                        </Line>
+                    </PartDraw>
+                </SecondHand>
+            </Group>
             // Second Hand
-            <SecondHand resource="hand_second" x="0" y="0" width="450" height="450">
+            <SecondHand resource="" x="0" y="0" width="450" height="450">
                 <Sweep frequency="SYNC_TO_DEVICE"/>
+                <PartDraw x="0" y="0" width="450" height="450">
+                    <Arc centerX="225" centerY="225" height="450" width="450" startAngle="-180" endAngle="0">
+                        <Stroke color="#FFD4D4D4" thickness="180">
+                            <SweepGradient centerX="225" centerY="225" startAngle="-180" endAngle="0" colors="#00000000 #80D4D4D4" positions="0 1"/>
+                        </Stroke>
+                    </Arc>
+                    <Line startX="225" startY="225" endX="225" endY="0">
+                        <Stroke color="#FFD4D4D4" thickness="3"/>
+                    </Line>
+                </PartDraw>
             </SecondHand>
 
             // Hour
@@ -192,9 +242,12 @@
             </PartText>
 
             // Foreground
-            <PartImage x="0" y="0"  width="450" height="450">
-                <Image resource="mid_hole"/>
-            </PartImage>
+            <PartDraw x="0" y="0"  width="450" height="450">
+                <Ellipse x="220" y="220" width="10" height="10">
+                    <Fill color="#FF000000"/>
+                    <Stroke color="#FFD4D4D4" thickness="2"/>
+                </Ellipse>
+            </PartDraw>
 
         </Group>
 
