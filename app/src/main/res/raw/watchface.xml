@@ -74,6 +74,16 @@
                 </Rectangle>
             </PartDraw>
 
+            // Index Behind
+            <SecondHand resource="index" x="0" y="0" width="450" height="450">
+                <Tick duration="0" strength="0"/>
+                <Transform target="alpha" value="255 - [MILLISECOND]/1000*191"/>
+            </SecondHand>
+            // Index Forward
+            <SecondHand resource="index2" x="0" y="0" width="450" height="450" alpha="64">
+                <Tick duration="0" strength="0"/>
+                <Transform target="alpha" value="64 + [MILLISECOND]/1000*191"/>
+            </SecondHand>
             // Second Hand
             <SecondHand resource="hand_second" x="0" y="0" width="450" height="450">
                 <Sweep frequency="SYNC_TO_DEVICE"/>
