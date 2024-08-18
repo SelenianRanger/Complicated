@@ -12,67 +12,9 @@
                 <Image resource="bg_dots"/>
             </PartImage>
             // Mid Lines
-            <PartImage x="0" y="60" width="450" height="450">
+            <PartImage x="0" y="62" width="450" height="450">
                 <Image resource="mid_lines"/>
             </PartImage>
-
-            // Battery Indicator
-            // Indicator Background
-            <PartDraw x="0" y="0" width="450" height="450">
-                <RoundRectangle x="250" y="213" width="50" height="10" cornerRadiusX="5" cornerRadiusY="5">
-                    <Fill color="#FF333333"/>
-                </RoundRectangle>
-            </PartDraw>
-            // Indicator Fill
-            <Condition>
-                <Expressions>
-                    <Expression name="Charging">[BATTERY_CHARGING_STATUS]</Expression>
-                    <Expression name="Under_50">[BATTERY_PERCENT] &lt; 50</Expression>
-                    <Expression name="Under_20">[BATTERY_PERCENT] &lt; 20</Expression>
-                </Expressions>
-                <Compare expression="Charging">
-                    <PartDraw x="0" y="0" width="450" height="450">
-                        <RoundRectangle x="253" y="216" width="44" height="4" cornerRadiusX="5" cornerRadiusY="5">
-                            <Fill color="#FF00D400"/>
-                            <Transform target="width" value="[BATTERY_PERCENT]*0.44"/>
-                        </RoundRectangle>
-                    </PartDraw>
-                </Compare>
-                <Compare expression="Under_20">
-                    <PartDraw x="0" y="0" width="450" height="450">
-                        <RoundRectangle x="253" y="216" width="44" height="4" cornerRadiusX="5" cornerRadiusY="5">
-                            <Fill color="#FFD40000"/>
-                            <Transform target="width" value="[BATTERY_PERCENT]*0.44"/>
-                        </RoundRectangle>
-                    </PartDraw>
-                </Compare>
-                <Compare expression="Under_50">
-                    <PartDraw x="0" y="0" width="450" height="450">
-                        <RoundRectangle x="253" y="216" width="44" height="4" cornerRadiusX="5" cornerRadiusY="5">
-                            <Fill color="#FFD4D400"/>
-                            <Transform target="width" value="[BATTERY_PERCENT]*0.44"/>
-                        </RoundRectangle>
-                    </PartDraw>
-                </Compare>
-                <Default>
-                    <PartDraw x="0" y="0" width="450" height="450">
-                        <RoundRectangle x="253" y="216" width="44" height="4" cornerRadiusX="5" cornerRadiusY="5">
-                            <Fill color="#FFD4D4D4"/>
-                            <Transform target="width" value="[BATTERY_PERCENT]*0.44"/>
-                        </RoundRectangle>
-                    </PartDraw>
-                </Default>
-            </Condition>
-
-            // Battery Icon
-            <PartDraw x="0" y="0" width="450" height="450">
-                <Rectangle x="305" y="215.5" width="9" height="5">
-                    <Fill color="#FFC0C0C0"/>
-                </Rectangle>
-                <Rectangle x="313" y="217" width="2.5" height="2">
-                    <Fill color="#FFC0C0C0"/>
-                </Rectangle>
-            </PartDraw>
 
             // Index Behind
             <Group name="Index_Behind" x="0" y="0" width="450" height="450">
@@ -145,19 +87,23 @@
                     <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                 </Expressions>
                 <Compare expression="Is_24h">
-                    <PartText x="50" y="110" width="220" height="220">
+                    <PartText x="53" y="106" width="220" height="220">
                         <Text>
-                            <Font family="oswald_light" size="180" color="#FF111111" weight="BOLD">
-                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
+                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                </Shadow>
                             </Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="50" y="110" width="220" height="220">
+                    <PartText x="53" y="106" width="220" height="220">
                         <Text>
-                            <Font family="oswald_light" size="180" color="#FF111111" weight="BOLD">
-                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
+                                    <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                </Shadow>
                             </Font>
                         </Text>
                     </PartText>
@@ -169,18 +115,18 @@
                         <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                     </Expressions>
                     <Compare expression="Is_24h">
-                        <PartText x="50" y="110" width="220" height="220" renderMode="MASK">
+                        <PartText x="53" y="106" width="220" height="220" renderMode="MASK">
                             <Text>
-                                <Font family="oswald_light" size="180" color="#FFFFFFFF" weight="BOLD">
+                                <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
                                     <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                 </Font>
                             </Text>
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="50" y="110" width="220" height="220" renderMode="MASK">
+                        <PartText x="53" y="106" width="220" height="220" renderMode="MASK">
                             <Text>
-                                <Font family="oswald_light" size="180" color="#FFFFFFFF" weight="BOLD">
+                                <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
                                     <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                 </Font>
                             </Text>
@@ -191,9 +137,9 @@
             </Group>
 
             // Minute
-            <PartText x="230" y="205" width="110" height="110">
+            <PartText x="240" y="205" width="110" height="110">
                 <Text>
-                    <Font family="oswald_light" size="90" color="#FFD4D4D4">
+                    <Font family="oswald_medium" size="90" color="#FFD4D4D4">
                         <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
                     </Font>
                 </Text>
@@ -207,49 +153,118 @@
                 </Expressions>
                 <Compare expression="Is_24h"/>
                 <Compare expression="Is_AM">
-                    <PartText x="330" y="215" width="60" height="60">
+                    <PartText x="345" y="215" width="60" height="60">
                         <Text>
-                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="BOLD">AM</Font>
+                            <Font family="roboto_medium" size="40" color="#FFD4D4D4" weight="BOLD">AM</Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="330" y="257" width="60" height="60">
+                    <PartText x="345" y="257" width="60" height="60">
                         <Text>
-                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="BOLD">PM</Font>
+                            <Font family="roboto_medium" size="40" color="#FFD4D4D4" weight="BOLD">PM</Font>
                         </Text>
                     </PartText>
                 </Default>
             </Condition>
 
             // Date
-            <PartText x="230" y="150" width="110" height="50">
-                <Font family="roboto_light" size="24" color="#FFFFFFFF" weight="BOLD">
-                    <Upper>
-                        <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
-                    </Upper>
-                </Font>
+            <PartText x="240" y="135" width="110" height="50">
+                <Text>
+                    <Font family="roboto_medium" size="26" color="#FFFFFFFF">
+                        <Upper>
+                            <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
+                        </Upper>
+                    </Font>
+                </Text>
             </PartText>
-            <PartText x="230" y="175" width="110" height="50">
-                <Font family="roboto_light" size="24" color="#FFFFFFFF" weight="BOLD">
-                    <Upper>
-                        <Template>%s %s
-                            <Parameter expression="[MONTH_S]"/>
-                            <Parameter expression="[DAY_Z]"/>
-                        </Template>
-                    </Upper>
-                </Font>
+            <PartText x="240" y="160" width="110" height="50">
+                <Text>
+                    <Font family="roboto_medium" size="26" color="#FFFFFFFF">
+                        <Upper>
+                            <Template>%s %s
+                                <Parameter expression="[MONTH_S]"/>
+                                <Parameter expression="[DAY_Z]"/>
+                            </Template>
+                        </Upper>
+                    </Font>
+                </Text>
             </PartText>
 
+            // Battery Indicator
+            // Indicator Background
+            <PartDraw x="0" y="0" width="450" height="450">
+                <RoundRectangle x="252" y="203" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
+                    <Fill color="#FF333333"/>
+                </RoundRectangle>
+            </PartDraw>
+            // Indicator Fill
+            <Group name="Battery_Indicator_Fill" x="0" y="0" width="450" height="450">
+                <Condition>
+                    <Expressions>
+                        <Expression name="Charging">[BATTERY_CHARGING_STATUS]</Expression>
+                        <Expression name="Under_50">[BATTERY_PERCENT] &lt; 50</Expression>
+                        <Expression name="Under_20">[BATTERY_PERCENT] &lt; 20</Expression>
+                    </Expressions>
+                    <Compare expression="Charging">
+                        <PartDraw x="0" y="0" width="450" height="450">
+                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                <Fill color="#FF00D400"/>
+                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                            </RoundRectangle>
+                        </PartDraw>
+                    </Compare>
+                    <Compare expression="Under_20">
+                        <PartDraw x="0" y="0" width="450" height="450">
+                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                <Fill color="#D50000"/>
+                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                            </RoundRectangle>
+                        </PartDraw>
+                    </Compare>
+                    <Compare expression="Under_50">
+                        <PartDraw x="0" y="0" width="450" height="450">
+                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                <Fill color="#FF7043"/>
+                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                            </RoundRectangle>
+                        </PartDraw>
+                    </Compare>
+                    <Default>
+                        <PartDraw x="0" y="0" width="450" height="450">
+                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                <Fill color="#FFD4D4D4"/>
+                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                            </RoundRectangle>
+                        </PartDraw>
+                    </Default>
+                </Condition>
+                <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
+                    <Line startX="255" startY="210.5" endX="314" endY="210.5">
+                        <Stroke color="#FFFFFFFF" thickness="10" dashIntervals="4 2"/>
+                    </Line>
+                </PartDraw>
+            </Group>
+
+            // Battery Icon
+            <PartDraw x="0" y="0" width="450" height="450">
+                <Rectangle x="322" y="206" width="9" height="7.5">
+                    <Fill color="#FFC0C0C0"/>
+                </Rectangle>
+                <Rectangle x="330" y="208" width="3" height="3.5">
+                    <Fill color="#FFC0C0C0"/>
+                </Rectangle>
+            </PartDraw>
+
             // Heart Rate
-            <PartImage x="320" y="150" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#FFB80000">
+            <PartImage x="335" y="130" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#B71C1C">
                 <Image resource="icon_heart"/>
                 <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
                 <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
             </PartImage>
-            <PartText x="319" y="149" width="80" height="80">
+            <PartText x="334" y="129" width="80" height="80">
                 <Text>
-                    <Font family="roboto_light" size="24" color="#FFE4E4E4" weight="BOLD">
+                    <Font family="roboto_medium" size="24" color="#FFE4E4E4" weight="BOLD">
                         <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
                     </Font>
                 </Text>
@@ -276,10 +291,10 @@
                     <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                 </Expressions>
                 <Compare expression="Is_24h">
-                    <PartText x="50" y="110" width="220" height="220">
+                    <PartText x="53" y="110" width="220" height="220">
                         <Text>
-                            <Font family="oswald_light" size="180" color="#00000000" weight="BOLD">
-                                <Outline color="#FF333333" size="2">
+                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                <Outline color="#FF333333" width="5">
                                     <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                 </Outline>
                             </Font>
@@ -287,10 +302,10 @@
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="50" y="110" width="220" height="220">
+                    <PartText x="53" y="110" width="220" height="220">
                         <Text>
-                            <Font family="oswald_light" size="180" color="#00000000" weight="BOLD">
-                                <Outline color="#FF333333" size="2">
+                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                <Outline color="#FF333333" width="5">
                                     <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                 </Outline>
                             </Font>
@@ -304,10 +319,10 @@
                         <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                     </Expressions>
                     <Compare expression="Is_24h">
-                        <PartText x="50" y="110" width="220" height="220" renderMode="MASK">
+                        <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
                             <Text>
-                                <Font family="oswald_light" size="180" color="#00000000" weight="BOLD">
-                                    <Outline color="#FFFFFFFF" size="2">
+                                <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                    <Outline color="#FFFFFFFF" width="5">
                                         <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                     </Outline>
                                 </Font>
@@ -315,10 +330,10 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="50" y="110" width="220" height="220" renderMode="MASK">
+                        <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
                             <Text>
-                                <Font family="oswald_light" size="180" color="#00000000" weight="BOLD">
-                                    <Outline color="#FFFFFFFF" size="2">
+                                <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                    <Outline color="#FFFFFFFF" width="5">
                                         <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                     </Outline>
                                 </Font>
@@ -330,10 +345,10 @@
             </Group>
 
             // Minute
-            <PartText x="230" y="205" width="110" height="110">
+            <PartText x="240" y="205" width="110" height="110">
                 <Text>
-                    <Font family="oswald_light" size="90" color="#00000000">
-                        <Outline color="#FF888888" size="2">
+                    <Font family="oswald_medium" size="90" color="#00000000">
+                        <Outline color="#FFFFFFFF" width="3">
                             <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
                         </Outline>
                     </Font>
@@ -348,40 +363,45 @@
                 </Expressions>
                 <Compare expression="Is_24h"/>
                 <Compare expression="Is_AM">
-                    <PartText x="330" y="215" width="60" height="60">
+                    <PartText x="345" y="215" width="60" height="60">
                         <Text>
-                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="LIGHT">AM</Font>
+                            <Font family="roboto_medium" size="40" color="#FFFFFFFF" weight="LIGHT">AM</Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="330" y="257" width="60" height="60">
+                    <PartText x="345" y="257" width="60" height="60">
                         <Text>
-                            <Font family="roboto_light" size="40" color="#FFD4D4D4" weight="LIGHT">PM</Font>
+                            <Font family="roboto_medium" size="40" color="#FFFFFFFF" weight="LIGHT">PM</Font>
                         </Text>
                     </PartText>
                 </Default>
             </Condition>
 
             // Date
-            <PartText x="230" y="150" width="110" height="50">
-                <Font family="roboto_light" size="24" color="#FFD4D4D4" weight="LIGHT">
-                    <Upper>
-                        <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
-                    </Upper>
-                </Font>
+            <PartText x="240" y="135" width="110" height="50">
+                <Text>
+                    <Font family="roboto_medium" size="26" color="#FFFFFFFF">
+                        <Upper>
+                            <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
+                        </Upper>
+                    </Font>
+                </Text>
             </PartText>
-            <PartText x="230" y="175" width="110" height="50">
-                <Font family="roboto_light" size="24" color="#FFD4D4D4" weight="LIGHT">
-                    <Upper>
-                        <Template>%s %s
-                            <Parameter expression="[MONTH_S]"/>
-                            <Parameter expression="[DAY_Z]"/>
-                        </Template>
-                    </Upper>
-                </Font>
+            <PartText x="240" y="160" width="110" height="50">
+                <Text>
+                    <Font family="roboto_medium" size="26" color="#FFFFFFFF">
+                        <Upper>
+                            <Template>%s %s
+                                <Parameter expression="[MONTH_S]"/>
+                                <Parameter expression="[DAY_Z]"/>
+                            </Template>
+                        </Upper>
+                    </Font>
+                </Text>
             </PartText>
 
         </Group>
+
     </Scene>
 </WatchFace>
