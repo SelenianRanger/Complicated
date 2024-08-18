@@ -241,6 +241,20 @@
                 </Font>
             </PartText>
 
+            // Heart Rate
+            <PartImage x="320" y="150" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#FFB80000">
+                <Image resource="icon_heart"/>
+                <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
+                <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
+            </PartImage>
+            <PartText x="319" y="149" width="80" height="80">
+                <Text>
+                    <Font family="roboto_light" size="24" color="#FFE4E4E4" weight="BOLD">
+                        <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
+                    </Font>
+                </Text>
+            </PartText>
+
             // Foreground
             <PartDraw x="0" y="0"  width="450" height="450">
                 <Ellipse x="220" y="220" width="10" height="10">
