@@ -153,14 +153,14 @@
                 </Expressions>
                 <Compare expression="Is_24h"/>
                 <Compare expression="Is_AM">
-                    <PartText x="355" y="215" width="60" height="60">
+                    <PartText x="367" y="220" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFD4D4D4" weight="BOLD">AM</Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="355" y="257" width="60" height="60">
+                    <PartText x="367" y="257" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFD4D4D4" weight="BOLD">PM</Font>
                         </Text>
@@ -257,12 +257,12 @@
             </PartDraw>
 
             // Heart Rate
-            <PartImage x="345" y="130" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#B71C1C">
+            <PartImage x="358" y="140" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#B71C1C">
                 <Image resource="icon_heart"/>
                 <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
                 <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
             </PartImage>
-            <PartText x="344" y="129" width="80" height="80">
+            <PartText x="357" y="139" width="80" height="80">
                 <Text>
                     <Font family="roboto_medium" size="24" color="#FFE4E4E4" weight="BOLD">
                         <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
@@ -363,14 +363,14 @@
                 </Expressions>
                 <Compare expression="Is_24h"/>
                 <Compare expression="Is_AM">
-                    <PartText x="355" y="215" width="60" height="60">
+                    <PartText x="367" y="220" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFFFFFFF" weight="LIGHT">AM</Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="355" y="257" width="60" height="60">
+                    <PartText x="367" y="257" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFFFFFFF" weight="LIGHT">PM</Font>
                         </Text>
@@ -437,8 +437,10 @@
                     <PartText x="0" y="0" width="450" height="450">
                         <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-60" endAngle="-15">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -460,9 +462,6 @@
                             <Stroke color="#DD000000" thickness="17" cap="ROUND"/>
                         </Arc>
                     </PartDraw>
-                    <PartImage x="14" y="186" width="22" height="22" angle="180" alpha="0">
-                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
-                    </PartImage>
                     <Group name="Complication_Bar_1" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
@@ -480,8 +479,10 @@
                     <PartText x="0" y="0" width="450" height="450">
                         <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="15" endAngle="60">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -503,9 +504,6 @@
                             <Stroke color="#DD000000" thickness="17" cap="ROUND"/>
                         </Arc>
                     </PartDraw>
-                    <PartImage x="14" y="186" width="22" height="22" alpha="0">
-                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
-                    </PartImage>
                     <Group name="Complication_Bar_2" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="-60" endAngle="-15">
@@ -523,8 +521,10 @@
                     <PartText x="0" y="0" width="450" height="450">
                         <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -546,9 +546,6 @@
                             <Stroke color="#DD000000" thickness="17" cap="ROUND"/>
                         </Arc>
                     </PartDraw>
-                    <PartImage x="14" y="186" width="22" height="22" angle="180" alpha="0">
-                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
-                    </PartImage>
                     <Group name="Complication_Bar_3" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
@@ -566,8 +563,10 @@
                     <PartText x="0" y="0" width="450" height="450">
                         <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -627,6 +626,56 @@
                     </PartText>
                 </Group>
             </Complication>
+        </ComplicationSlot>
+
+        // Left 1
+        <ComplicationSlot x="20" y="150" width="65" height="65" slotId="6" supportedTypes="EMPTY SHORT_TEXT">
+            <BoundingBox x="0" y="0" width="65" height="65"/>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_6" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="17" y="0" width="30" height="30">
+                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+                    </PartImage>
+                    <PartText x="0" y="35" width="65" height="30">
+                        <Text ellipsis="TRUE">
+                            <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Group>
+            </Complication>
+        </ComplicationSlot>
+
+        // Left 2
+        <ComplicationSlot x="20" y="235" width="65" height="65" slotId="7" supportedTypes="EMPTY SHORT_TEXT">
+            <BoundingBox x="0" y="0" width="65" height="65"/>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_7" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="17" y="0" width="30" height="30">
+                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+                    </PartImage>
+                    <PartText x="0" y="35" width="65" height="30">
+                        <Text ellipsis="TRUE">
+                            <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Group>
+            </Complication>
+        </ComplicationSlot>
+
+        // Clock
+        <ComplicationSlot x="125" y="150" width="200" height="150" slotId="8" supportedTypes="EMPTY LONG_TEXT">
+            <BoundingBox x="0" y="0" width="200" height="150"/>
+            <Complication type="LONG_TEXT"/>
         </ComplicationSlot>
 
     </Scene>
