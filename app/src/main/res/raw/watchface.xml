@@ -137,7 +137,7 @@
             </Group>
 
             // Minute
-            <PartText x="240" y="205" width="110" height="110">
+            <PartText x="250" y="205" width="110" height="110">
                 <Text>
                     <Font family="oswald_medium" size="90" color="#FFD4D4D4">
                         <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
@@ -153,14 +153,14 @@
                 </Expressions>
                 <Compare expression="Is_24h"/>
                 <Compare expression="Is_AM">
-                    <PartText x="345" y="215" width="60" height="60">
+                    <PartText x="355" y="215" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFD4D4D4" weight="BOLD">AM</Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="345" y="257" width="60" height="60">
+                    <PartText x="355" y="257" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFD4D4D4" weight="BOLD">PM</Font>
                         </Text>
@@ -169,7 +169,7 @@
             </Condition>
 
             // Date
-            <PartText x="240" y="135" width="110" height="50">
+            <PartText x="250" y="135" width="110" height="50">
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -178,7 +178,7 @@
                     </Font>
                 </Text>
             </PartText>
-            <PartText x="240" y="160" width="110" height="50">
+            <PartText x="250" y="160" width="110" height="50">
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -194,7 +194,7 @@
             // Battery Indicator
             // Indicator Background
             <PartDraw x="0" y="0" width="450" height="450">
-                <RoundRectangle x="252" y="203" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
+                <RoundRectangle x="262" y="203" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
                     <Fill color="#FF333333"/>
                 </RoundRectangle>
             </PartDraw>
@@ -208,7 +208,7 @@
                     </Expressions>
                     <Compare expression="Charging">
                         <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
                                 <Fill color="#FF00D400"/>
                                 <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
                             </RoundRectangle>
@@ -216,7 +216,7 @@
                     </Compare>
                     <Compare expression="Under_20">
                         <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
                                 <Fill color="#D50000"/>
                                 <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
                             </RoundRectangle>
@@ -224,7 +224,7 @@
                     </Compare>
                     <Compare expression="Under_50">
                         <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
                                 <Fill color="#FFF57F17"/>
                                 <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
                             </RoundRectangle>
@@ -232,7 +232,7 @@
                     </Compare>
                     <Default>
                         <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="255" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
                                 <Fill color="#FFD4D4D4"/>
                                 <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
                             </RoundRectangle>
@@ -240,7 +240,7 @@
                     </Default>
                 </Condition>
                 <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
-                    <Line startX="255" startY="210.5" endX="314" endY="210.5">
+                    <Line startX="265" startY="210.5" endX="324" endY="210.5">
                         <Stroke color="#FFFFFFFF" thickness="10" dashIntervals="4 2"/>
                     </Line>
                 </PartDraw>
@@ -248,21 +248,21 @@
 
             // Battery Icon
             <PartDraw x="0" y="0" width="450" height="450">
-                <Rectangle x="322" y="206" width="9" height="7.5">
+                <Rectangle x="332" y="206" width="9" height="7.5">
                     <Fill color="#FFC0C0C0"/>
                 </Rectangle>
-                <Rectangle x="330" y="208" width="3" height="3.5">
+                <Rectangle x="340" y="208" width="3" height="3.5">
                     <Fill color="#FFC0C0C0"/>
                 </Rectangle>
             </PartDraw>
 
             // Heart Rate
-            <PartImage x="335" y="130" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#B71C1C">
+            <PartImage x="345" y="130" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#B71C1C">
                 <Image resource="icon_heart"/>
                 <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
                 <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
             </PartImage>
-            <PartText x="334" y="129" width="80" height="80">
+            <PartText x="344" y="129" width="80" height="80">
                 <Text>
                     <Font family="roboto_medium" size="24" color="#FFE4E4E4" weight="BOLD">
                         <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
@@ -345,7 +345,7 @@
             </Group>
 
             // Minute
-            <PartText x="240" y="205" width="110" height="110">
+            <PartText x="250" y="205" width="110" height="110">
                 <Text>
                     <Font family="oswald_medium" size="90" color="#00000000">
                         <Outline color="#FFFFFFFF" width="3">
@@ -363,14 +363,14 @@
                 </Expressions>
                 <Compare expression="Is_24h"/>
                 <Compare expression="Is_AM">
-                    <PartText x="345" y="215" width="60" height="60">
+                    <PartText x="355" y="215" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFFFFFFF" weight="LIGHT">AM</Font>
                         </Text>
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="345" y="257" width="60" height="60">
+                    <PartText x="355" y="257" width="60" height="60">
                         <Text>
                             <Font family="roboto_medium" size="40" color="#FFFFFFFF" weight="LIGHT">PM</Font>
                         </Text>
@@ -379,7 +379,7 @@
             </Condition>
 
             // Date
-            <PartText x="240" y="135" width="110" height="50">
+            <PartText x="250" y="135" width="110" height="50">
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -388,7 +388,7 @@
                     </Font>
                 </Text>
             </PartText>
-            <PartText x="240" y="160" width="110" height="50">
+            <PartText x="250" y="160" width="110" height="50">
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -405,7 +405,7 @@
 
         // Complications
         // -----------------------------------------------------------------------------------------
-        
+
         // Top Left Arc
         <ComplicationSlot x="0" y="0" width="185" height="135" slotId="0" supportedTypes="EMPTY RANGED_VALUE">
             <BoundingArc centerX="225" centerY="225" height="440" width="440" startAngle="-58" endAngle="-17" thickness="55" isRoundEdge="TRUE"/>
@@ -574,5 +574,60 @@
                 </Group>
             </Complication>
         </ComplicationSlot>
+
+        // Top Box
+        <ComplicationSlot x="135" y="60" width="180" height="80" slotId="4" supportedTypes="EMPTY LONG_TEXT">
+            <BoundingBox x="0" y="0" width="180" height="80"/>
+            <Complication type="LONG_TEXT">
+                <Group name="LONG_TEXT_4" x="0" y="0" width="180" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartText x="0" y="0" width="180" height="80">
+                        <TextCircular centerX="90" centerY="165" width="300" height="295" startAngle="-35" endAngle="35" ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
+                            </Font>
+                        </TextCircular>
+                    </PartText>
+                    <PartText x="20" y="40" width="140" height="35">
+                        <Text ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="35" height="35"/>
+                                <Template> %s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Group>
+            </Complication>
+        </ComplicationSlot>
+
+        // Bottom Box
+        <ComplicationSlot x="135" y="310" width="180" height="80" slotId="5" supportedTypes="EMPTY LONG_TEXT">
+            <BoundingBox x="0" y="0" width="180" height="80"/>
+            <Complication type="LONG_TEXT">
+                <Group name="LONG_TEXT_5" x="0" y="0" width="180" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartText x="0" y="0" width="180" height="80">
+                        <TextCircular centerX="90" centerY="-85" width="300" height="295" startAngle="215" endAngle="145" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                </Shadow>
+                            </Font>
+                        </TextCircular>
+                    </PartText>
+                    <PartText x="20" y="0" width="140" height="35">
+                        <Text ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="35" height="35"/>
+                                <Template> %s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Group>
+            </Complication>
+        </ComplicationSlot>
+
     </Scene>
 </WatchFace>
