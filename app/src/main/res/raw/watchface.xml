@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WatchFace width="450" height="450">
     <Metadata key="CLOCK_TYPE" value="DIGITAL"/>
+    <UserConfigurations>
+        <BooleanConfiguration id="show_index" displayName="show_seconds_index" defaultValue="TRUE"/>
+        <BooleanConfiguration id="show_battery" displayName="show_battery_indicator" defaultValue="TRUE"/>
+        <BooleanConfiguration id="show_hour_font_shadow" displayName="show_hour_font_shadow" defaultValue="TRUE"/>
+        <BooleanConfiguration id="show_AOD_color" displayName="show_AOD_color" defaultValue="TRUE"/>
+        <BooleanConfiguration id="AOD_font_hollow" displayName="AOD_font_hollow" defaultValue="TRUE"/>
+        <ListConfiguration id="hour_color_style" displayName="hour_color_style" defaultValue="DUAL_COLOR">
+            <ListOption id="SINGLE_COLOR" displayName="option_single_color"/>
+            <ListOption id="DUAL_COLOR" displayName="option_dual_color"/>
+        </ListConfiguration>
+        <ListConfiguration id="show_second_hand" displayName="second_hand_mode" defaultValue="HAND_TRAIL">
+            <ListOption id="DISABLED" displayName="option_disabled"/>
+            <ListOption id="HAND" displayName="option_second_hand"/>
+            <ListOption id="HAND_TRAIL" displayName="option_second_hand_trail"/>
+        </ListConfiguration>
+        <ListConfiguration id="show_heartrate" displayName="show_heartrate_indicator" defaultValue="ANIMATED">
+            <ListOption id="DISABLED" displayName="option_disabled"/>
+            <ListOption id="STATIC" displayName="option_static"/>
+            <ListOption id="ANIMATED" displayName="option_animated"/>
+        </ListConfiguration>
+    </UserConfigurations>
     <Scene>
         // ACTIVE DISPLAY
         // -----------------------------------------------------------------------------------------
@@ -16,70 +37,90 @@
                 <Image resource="mid_lines"/>
             </PartImage>
 
-            // Index Behind
-            <Group name="Index_Behind" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="255 - [MILLISECOND]/1000*128"/>
-                <SecondHand resource="" x="0" y="0" width="450" height="450">
-                    <Tick duration="0" strength="0"/>
-                    <PartDraw x="0" y="0" width="450" height="450">
-                        <Line startX="225" startY="15" endX="225" endY="0">
-                            <Stroke color="#FFD4D4D4" thickness="2"/>
-                            <Transform target="startY" value="[SECOND] % 5 == 0 ? 30 : 15"/>
-                        </Line>
-                    </PartDraw>
-                    <PartDraw x="0" y="0" width="450" height="450" angle="-6">
-                        <Line startX="225" startY="15" endX="225" endY="0">
-                            <Stroke color="#88D4D4D4" thickness="2"/>
-                            <Transform target="startY" value="([SECOND] - 1) % 5 == 0 ? 30 : 15"/>
-                        </Line>
-                    </PartDraw>
-                    <PartDraw x="0" y="0" width="450" height="450" angle="-12">
-                        <Line startX="225" startY="15" endX="225" endY="0">
-                            <Stroke color="#44D4D4D4" thickness="2"/>
-                            <Transform target="startY" value="([SECOND] - 2) % 5 == 0 ? 30 : 15"/>
-                        </Line>
-                    </PartDraw>
-                </SecondHand>
-            </Group>
-            // Index Forward
-            <Group name="Index_Forward" x="0" y="0" width="450" height="450" alpha="128">
-                <Transform target="alpha" value="128 + [MILLISECOND]/1000*128"/>
-                <SecondHand resource="" x="0" y="0" width="450" height="450">
-                    <Tick duration="0" strength="0"/>
-                    <PartDraw x="0" y="0" width="450" height="450" angle="6">
-                        <Line startX="225" startY="15" endX="225" endY="0">
-                            <Stroke color="#FFD4D4D4" thickness="2"/>
-                            <Transform target="startY" value="([SECOND] + 1) % 5 == 0 ? 30 : 15"/>
-                        </Line>
-                    </PartDraw>
-                    <PartDraw x="0" y="0" width="450" height="450" angle="12">
-                        <Line startX="225" startY="15" endX="225" endY="0">
-                            <Stroke color="#88D4D4D4" thickness="2"/>
-                            <Transform target="startY" value="([SECOND] + 2) % 5 == 0 ? 30 : 15"/>
-                        </Line>
-                    </PartDraw>
-                    <PartDraw x="0" y="0" width="450" height="450" angle="18">
-                        <Line startX="225" startY="15" endX="225" endY="0">
-                            <Stroke color="#44D4D4D4" thickness="2"/>
-                            <Transform target="startY" value="([SECOND] + 3) % 5 == 0 ? 30 : 15"/>
-                        </Line>
-                    </PartDraw>
-                </SecondHand>
-            </Group>
+            // Seconds Index
+            <BooleanConfiguration id="show_index">
+                <BooleanOption id="TRUE">
+                    // Index Behind
+                    <Group name="Index_Behind" x="0" y="0" width="450" height="450">
+                        <Transform target="alpha" value="255 - [MILLISECOND]/1000*128"/>
+                        <SecondHand resource="" x="0" y="0" width="450" height="450">
+                            <Tick duration="0" strength="0"/>
+                            <PartDraw x="0" y="0" width="450" height="450">
+                                <Line startX="225" startY="15" endX="225" endY="0">
+                                    <Stroke color="#FFD4D4D4" thickness="2"/>
+                                    <Transform target="startY" value="[SECOND] % 5 == 0 ? 30 : 15"/>
+                                </Line>
+                            </PartDraw>
+                            <PartDraw x="0" y="0" width="450" height="450" angle="-6">
+                                <Line startX="225" startY="15" endX="225" endY="0">
+                                    <Stroke color="#88D4D4D4" thickness="2"/>
+                                    <Transform target="startY" value="([SECOND] - 1) % 5 == 0 ? 30 : 15"/>
+                                </Line>
+                            </PartDraw>
+                            <PartDraw x="0" y="0" width="450" height="450" angle="-12">
+                                <Line startX="225" startY="15" endX="225" endY="0">
+                                    <Stroke color="#44D4D4D4" thickness="2"/>
+                                    <Transform target="startY" value="([SECOND] - 2) % 5 == 0 ? 30 : 15"/>
+                                </Line>
+                            </PartDraw>
+                        </SecondHand>
+                    </Group>
+                    // Index Forward
+                    <Group name="Index_Forward" x="0" y="0" width="450" height="450" alpha="128">
+                        <Transform target="alpha" value="128 + [MILLISECOND]/1000*128"/>
+                        <SecondHand resource="" x="0" y="0" width="450" height="450">
+                            <Tick duration="0" strength="0"/>
+                            <PartDraw x="0" y="0" width="450" height="450" angle="6">
+                                <Line startX="225" startY="15" endX="225" endY="0">
+                                    <Stroke color="#FFD4D4D4" thickness="2"/>
+                                    <Transform target="startY" value="([SECOND] + 1) % 5 == 0 ? 30 : 15"/>
+                                </Line>
+                            </PartDraw>
+                            <PartDraw x="0" y="0" width="450" height="450" angle="12">
+                                <Line startX="225" startY="15" endX="225" endY="0">
+                                    <Stroke color="#88D4D4D4" thickness="2"/>
+                                    <Transform target="startY" value="([SECOND] + 2) % 5 == 0 ? 30 : 15"/>
+                                </Line>
+                            </PartDraw>
+                            <PartDraw x="0" y="0" width="450" height="450" angle="18">
+                                <Line startX="225" startY="15" endX="225" endY="0">
+                                    <Stroke color="#44D4D4D4" thickness="2"/>
+                                    <Transform target="startY" value="([SECOND] + 3) % 5 == 0 ? 30 : 15"/>
+                                </Line>
+                            </PartDraw>
+                        </SecondHand>
+                    </Group>
+                </BooleanOption>
+            </BooleanConfiguration>
+
             // Second Hand
-            <SecondHand resource="" x="0" y="0" width="450" height="450">
-                <Sweep frequency="SYNC_TO_DEVICE"/>
-                <PartDraw x="0" y="0" width="450" height="450">
-                    <Arc centerX="225" centerY="225" height="450" width="450" startAngle="-180" endAngle="0">
-                        <Stroke color="#FFD4D4D4" thickness="180">
-                            <SweepGradient centerX="225" centerY="225" startAngle="-180" endAngle="0" colors="#00000000 #80D4D4D4" positions="0 1"/>
-                        </Stroke>
-                    </Arc>
-                    <Line startX="225" startY="225" endX="225" endY="0">
-                        <Stroke color="#FFD4D4D4" thickness="3"/>
-                    </Line>
-                </PartDraw>
-            </SecondHand>
+            <ListConfiguration id="show_second_hand">
+                <ListOption id="HAND">
+                    <SecondHand resource="" x="0" y="0" width="450" height="450">
+                        <Sweep frequency="SYNC_TO_DEVICE"/>
+                        <PartDraw x="0" y="0" width="450" height="450">
+                            <Line startX="225" startY="225" endX="225" endY="0">
+                                <Stroke color="#FFD4D4D4" thickness="3"/>
+                            </Line>
+                        </PartDraw>
+                    </SecondHand>
+                </ListOption>
+                <ListOption id="HAND_TRAIL">
+                    <SecondHand resource="" x="0" y="0" width="450" height="450">
+                        <Sweep frequency="SYNC_TO_DEVICE"/>
+                        <PartDraw x="0" y="0" width="450" height="450">
+                            <Arc centerX="225" centerY="225" height="450" width="450" startAngle="-180" endAngle="0">
+                                <Stroke color="#FFD4D4D4" thickness="180">
+                                    <SweepGradient centerX="225" centerY="225" startAngle="-180" endAngle="0" colors="#00000000 #80D4D4D4" positions="0 1"/>
+                                </Stroke>
+                            </Arc>
+                            <Line startX="225" startY="225" endX="225" endY="0">
+                                <Stroke color="#FFD4D4D4" thickness="3"/>
+                            </Line>
+                        </PartDraw>
+                    </SecondHand>
+                </ListOption>
+            </ListConfiguration>
 
             // Hour
             <Condition>
@@ -87,54 +128,84 @@
                     <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                 </Expressions>
                 <Compare expression="Is_24h">
-                    <PartText x="53" y="106" width="220" height="220">
-                        <Text>
-                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
-                                <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
-                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
-                                </Shadow>
-                            </Font>
-                        </Text>
-                    </PartText>
+                    <BooleanConfiguration id="show_hour_font_shadow">
+                        <BooleanOption id="TRUE">
+                            <PartText x="53" y="106" width="220" height="220">
+                                <Text>
+                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                        <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
+                                            <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                        <BooleanOption id="FALSE">
+                            <PartText x="53" y="106" width="220" height="220">
+                                <Text>
+                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                        <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
                 </Compare>
                 <Default>
-                    <PartText x="53" y="106" width="220" height="220">
-                        <Text>
-                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
-                                <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
-                                    <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                </Shadow>
-                            </Font>
-                        </Text>
-                    </PartText>
+                    <BooleanConfiguration id="show_hour_font_shadow">
+                        <BooleanOption id="TRUE">
+                            <PartText x="53" y="106" width="220" height="220">
+                                <Text>
+                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                        <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
+                                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                        <BooleanOption id="FALSE">
+                            <PartText x="53" y="106" width="220" height="220">
+                                <Text>
+                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                        <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
                 </Default>
             </Condition>
-            <Group name="HH" x="0" y="0" width="450" height="450">
-                <Condition>
-                    <Expressions>
-                        <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
-                    </Expressions>
-                    <Compare expression="Is_24h">
-                        <PartText x="53" y="106" width="220" height="220" renderMode="MASK">
-                            <Text>
-                                <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
-                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                    </Compare>
-                    <Default>
-                        <PartText x="53" y="106" width="220" height="220" renderMode="MASK">
-                            <Text>
-                                <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
-                                    <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                    </Default>
-                </Condition>
-                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
-            </Group>
+            <ListConfiguration id="hour_color_style">
+                <ListOption id="DUAL_COLOR">
+                    <Group name="hour_second_color" x="0" y="0" width="450" height="450">
+                        <Condition>
+                            <Expressions>
+                                <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
+                            </Expressions>
+                            <Compare expression="Is_24h">
+                                <PartText x="53" y="106" width="220" height="220" renderMode="MASK">
+                                    <Text>
+                                        <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                            <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Compare>
+                            <Default>
+                                <PartText x="53" y="106" width="220" height="220" renderMode="MASK">
+                                    <Text>
+                                        <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Default>
+                        </Condition>
+                        <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
+                    </Group>
+                </ListOption>
+            </ListConfiguration>
 
             // Minute
             <PartText x="250" y="205" width="110" height="110">
@@ -192,91 +263,122 @@
             </PartText>
 
             // Battery Indicator
-            // Indicator Background
-            <PartDraw x="0" y="0" width="450" height="450">
-                <RoundRectangle x="262" y="203" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
-                    <Fill color="#FF333333"/>
-                </RoundRectangle>
-            </PartDraw>
-            // Indicator Fill
-            <Group name="Battery_Indicator_Fill" x="0" y="0" width="450" height="450">
-                <Condition>
-                    <Expressions>
-                        <Expression name="Charging">[BATTERY_CHARGING_STATUS]</Expression>
-                        <Expression name="Under_50">[BATTERY_PERCENT] &lt; 50</Expression>
-                        <Expression name="Under_20">[BATTERY_PERCENT] &lt; 20</Expression>
-                    </Expressions>
-                    <Compare expression="Charging">
-                        <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
-                                <Fill color="#FF00D400"/>
-                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
-                            </RoundRectangle>
+            <BooleanConfiguration id="show_battery">
+                <BooleanOption id="TRUE">
+                    // Indicator Background
+                    <PartDraw x="0" y="0" width="450" height="450">
+                        <RoundRectangle x="262" y="203" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
+                            <Fill color="#FF333333"/>
+                        </RoundRectangle>
+                    </PartDraw>
+                    // Indicator Fill
+                    <Group name="Battery_Indicator_Fill" x="0" y="0" width="450" height="450">
+                        <Condition>
+                            <Expressions>
+                                <Expression name="Charging">[BATTERY_CHARGING_STATUS]</Expression>
+                                <Expression name="Under_50">[BATTERY_PERCENT] &lt; 50</Expression>
+                                <Expression name="Under_20">[BATTERY_PERCENT] &lt; 20</Expression>
+                            </Expressions>
+                            <Compare expression="Charging">
+                                <PartDraw x="0" y="0" width="450" height="450">
+                                    <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                        <Fill color="#FF00D400"/>
+                                        <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                                    </RoundRectangle>
+                                </PartDraw>
+                            </Compare>
+                            <Compare expression="Under_20">
+                                <PartDraw x="0" y="0" width="450" height="450">
+                                    <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                        <Fill color="#D50000"/>
+                                        <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                                    </RoundRectangle>
+                                </PartDraw>
+                            </Compare>
+                            <Compare expression="Under_50">
+                                <PartDraw x="0" y="0" width="450" height="450">
+                                    <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                        <Fill color="#FFF57F17"/>
+                                        <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                                    </RoundRectangle>
+                                </PartDraw>
+                            </Compare>
+                            <Default>
+                                <PartDraw x="0" y="0" width="450" height="450">
+                                    <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
+                                        <Fill color="#FFD4D4D4"/>
+                                        <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
+                                    </RoundRectangle>
+                                </PartDraw>
+                            </Default>
+                        </Condition>
+                        <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
+                            <Line startX="265" startY="210.5" endX="324" endY="210.5">
+                                <Stroke color="#FFFFFFFF" thickness="10" dashIntervals="4 2"/>
+                            </Line>
                         </PartDraw>
-                    </Compare>
-                    <Compare expression="Under_20">
-                        <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
-                                <Fill color="#D50000"/>
-                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
-                            </RoundRectangle>
-                        </PartDraw>
-                    </Compare>
-                    <Compare expression="Under_50">
-                        <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
-                                <Fill color="#FFF57F17"/>
-                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
-                            </RoundRectangle>
-                        </PartDraw>
-                    </Compare>
-                    <Default>
-                        <PartDraw x="0" y="0" width="450" height="450">
-                            <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
-                                <Fill color="#FFD4D4D4"/>
-                                <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
-                            </RoundRectangle>
-                        </PartDraw>
-                    </Default>
-                </Condition>
-                <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
-                    <Line startX="265" startY="210.5" endX="324" endY="210.5">
-                        <Stroke color="#FFFFFFFF" thickness="10" dashIntervals="4 2"/>
-                    </Line>
-                </PartDraw>
-            </Group>
-
-            // Battery Icon
-            <PartDraw x="0" y="0" width="450" height="450">
-                <Rectangle x="332" y="206" width="9" height="7.5">
-                    <Fill color="#FFC0C0C0"/>
-                </Rectangle>
-                <Rectangle x="340" y="208" width="3" height="3.5">
-                    <Fill color="#FFC0C0C0"/>
-                </Rectangle>
-            </PartDraw>
+                    </Group>
+                    // Battery Icon
+                    <PartDraw x="0" y="0" width="450" height="450">
+                        <Rectangle x="332" y="206" width="9" height="7.5">
+                            <Fill color="#FFC0C0C0"/>
+                        </Rectangle>
+                        <Rectangle x="340" y="208" width="3" height="3.5">
+                            <Fill color="#FFC0C0C0"/>
+                        </Rectangle>
+                    </PartDraw>
+                </BooleanOption>
+            </BooleanConfiguration>
 
             // Heart Rate
-            <PartImage x="358" y="140" width="80" height="80" scaleX="0.7" scaleY="0.7" tintColor="#B71C1C">
-                <Image resource="icon_heart"/>
-                <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
-                <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
-            </PartImage>
-            <PartText x="357" y="139" width="80" height="80">
-                <Text>
-                    <Font family="roboto_medium" size="24" color="#FFE4E4E4" weight="BOLD">
-                        <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
-                    </Font>
-                </Text>
-            </PartText>
+            <ListConfiguration id="show_heartrate">
+                <ListOption id="STATIC">
+                    <PartImage x="358" y="140" width="80" height="80" scaleX="0.76" scaleY="0.76" tintColor="#B71C1C">
+                        <Image resource="icon_heart"/>
+                    </PartImage>
+                    <PartText x="357" y="139" width="80" height="80">
+                        <Text>
+                            <Font family="roboto_medium" size="24" color="#FFE4E4E4" weight="BOLD">
+                                <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </ListOption>
+                <ListOption id="ANIMATED">
+                    <PartImage x="358" y="140" width="80" height="80" scaleX="0.76" scaleY="0.76" tintColor="#B71C1C">
+                        <Image resource="icon_heart"/>
+                        <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
+                        <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
+                    </PartImage>
+                    <PartText x="357" y="139" width="80" height="80">
+                        <Text>
+                            <Font family="roboto_medium" size="24" color="#FFE4E4E4" weight="BOLD">
+                                <Template>%d<Parameter expression="[HEART_RATE]"/></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </ListOption>
+            </ListConfiguration>
 
             // Foreground
-            <PartDraw x="0" y="0"  width="450" height="450">
-                <Ellipse x="220" y="220" width="10" height="10">
-                    <Fill color="#FF000000"/>
-                    <Stroke color="#FFD4D4D4" thickness="2"/>
-                </Ellipse>
-            </PartDraw>
+            <ListConfiguration id="show_second_hand">
+                <ListOption id="HAND">
+                    <PartDraw x="0" y="0"  width="450" height="450">
+                        <Ellipse x="220" y="220" width="10" height="10">
+                            <Fill color="#FF000000"/>
+                            <Stroke color="#FFD4D4D4" thickness="2"/>
+                        </Ellipse>
+                    </PartDraw>
+                </ListOption>
+                <ListOption id="HAND_TRAIL">
+                    <PartDraw x="0" y="0"  width="450" height="450">
+                        <Ellipse x="220" y="220" width="10" height="10">
+                            <Fill color="#FF000000"/>
+                            <Stroke color="#FFD4D4D4" thickness="2"/>
+                        </Ellipse>
+                    </PartDraw>
+                </ListOption>
+            </ListConfiguration>
 
         </Group>
 
@@ -286,74 +388,203 @@
             <Variant mode="AMBIENT" target="alpha" value="255"/>
 
             // Hour
-            <Condition>
-                <Expressions>
-                    <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
-                </Expressions>
-                <Compare expression="Is_24h">
-                    <PartText x="53" y="110" width="220" height="220">
-                        <Text>
-                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
-                                <Outline color="#FF333333" width="5">
-                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
-                                </Outline>
-                            </Font>
-                        </Text>
-                    </PartText>
-                </Compare>
-                <Default>
-                    <PartText x="53" y="110" width="220" height="220">
-                        <Text>
-                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
-                                <Outline color="#FF333333" width="5">
-                                    <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                </Outline>
-                            </Font>
-                        </Text>
-                    </PartText>
-                </Default>
-            </Condition>
-            <Group name="HH_AOD" x="0" y="0" width="450" height="450">
-                <Condition>
-                    <Expressions>
-                        <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
-                    </Expressions>
-                    <Compare expression="Is_24h">
-                        <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
-                            <Text>
-                                <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
-                                    <Outline color="#FFFFFFFF" width="5">
-                                        <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
-                                    </Outline>
-                                </Font>
-                            </Text>
-                        </PartText>
-                    </Compare>
-                    <Default>
-                        <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
-                            <Text>
-                                <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
-                                    <Outline color="#FFFFFFFF" width="5">
-                                        <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                    </Outline>
-                                </Font>
-                            </Text>
-                        </PartText>
-                    </Default>
-                </Condition>
-                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
-            </Group>
+            <BooleanConfiguration id="show_AOD_color">
+                <BooleanOption id="FALSE">
+                    <Condition>
+                        <Expressions>
+                            <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
+                        </Expressions>
+                        <Compare expression="Is_24h">
+                            <BooleanConfiguration id="AOD_font_hollow">
+                                <BooleanOption id="TRUE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                                <Outline color="#FFFFFFFF" width="4">
+                                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                </Outline>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                                <BooleanOption id="FALSE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                            </BooleanConfiguration>
+                        </Compare>
+                        <Default>
+                            <BooleanConfiguration id="AOD_font_hollow">
+                                <BooleanOption id="TRUE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                                <Outline color="#FFFFFFFF" width="4">
+                                                    <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                                </Outline>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                                <BooleanOption id="FALSE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                            </BooleanConfiguration>
+                        </Default>
+                    </Condition>
+                </BooleanOption>
+                <BooleanOption id="TRUE">
+                    <Condition>
+                        <Expressions>
+                            <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
+                        </Expressions>
+                        <Compare expression="Is_24h">
+                            <BooleanConfiguration id="AOD_font_hollow">
+                                <BooleanOption id="TRUE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                                <Outline color="#FF111111" width="4">
+                                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                </Outline>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                                <BooleanOption id="FALSE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                            </BooleanConfiguration>
+                        </Compare>
+                        <Default>
+                            <BooleanConfiguration id="AOD_font_hollow">
+                                <BooleanOption id="TRUE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                                <Outline color="#FF111111" width="4">
+                                                    <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                                </Outline>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                                <BooleanOption id="FALSE">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </BooleanOption>
+                            </BooleanConfiguration>
+                        </Default>
+                    </Condition>
+                    <ListConfiguration id="hour_color_style">
+                        <ListOption id="DUAL_COLOR">
+                            <Group name="hour_second_color_AOD" x="0" y="0" width="450" height="450">
+                                <Condition>
+                                    <Expressions>
+                                        <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
+                                    </Expressions>
+                                    <Compare expression="Is_24h">
+                                        <BooleanConfiguration id="AOD_font_hollow">
+                                            <BooleanOption id="TRUE">
+                                                <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
+                                                    <Text>
+                                                        <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                                            <Outline color="#FFFFFFFF" width="4">
+                                                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                            </Outline>
+                                                        </Font>
+                                                    </Text>
+                                                </PartText>
+                                            </BooleanOption>
+                                            <BooleanOption id="FALSE">
+                                                <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
+                                                    <Text>
+                                                        <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                                            <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                        </Font>
+                                                    </Text>
+                                                </PartText>
+                                            </BooleanOption>
+                                        </BooleanConfiguration>
+                                    </Compare>
+                                    <Default>
+                                        <BooleanConfiguration id="AOD_font_hollow">
+                                            <BooleanOption id="TRUE">
+                                                <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
+                                                    <Text>
+                                                        <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
+                                                            <Outline color="#FFFFFFFF" width="4">
+                                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                                            </Outline>
+                                                        </Font>
+                                                    </Text>
+                                                </PartText>
+                                            </BooleanOption>
+                                            <BooleanOption id="FALSE">
+                                                <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
+                                                    <Text>
+                                                        <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
+                                                        </Font>
+                                                    </Text>
+                                                </PartText>
+                                            </BooleanOption>
+                                        </BooleanConfiguration>
+                                    </Default>
+                                </Condition>
+                                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
+                            </Group>
+                        </ListOption>
+                    </ListConfiguration>
+                </BooleanOption>
+            </BooleanConfiguration>
 
             // Minute
-            <PartText x="250" y="205" width="110" height="110">
-                <Text>
-                    <Font family="oswald_medium" size="90" color="#00000000">
-                        <Outline color="#FFFFFFFF" width="3">
-                            <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
-                        </Outline>
-                    </Font>
-                </Text>
-            </PartText>
+            <BooleanConfiguration id="AOD_font_hollow">
+                <BooleanOption id="TRUE">
+                    <PartText x="250" y="205" width="110" height="110">
+                        <Text>
+                            <Font family="oswald_medium" size="90" color="#00000000">
+                                <Outline color="#FFFFFFFF" width="3">
+                                    <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
+                                </Outline>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </BooleanOption>
+                <BooleanOption id="FALSE">
+                    <PartText x="250" y="205" width="110" height="110">
+                        <Text>
+                            <Font family="oswald_medium" size="90" color="#FFFFFFFF">
+                                <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </BooleanOption>
+            </BooleanConfiguration>
+
 
             // AM/PM
             <Condition>
