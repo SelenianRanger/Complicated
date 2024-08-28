@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Complicated"
-include(":app")
+include(":Complicated")
  
