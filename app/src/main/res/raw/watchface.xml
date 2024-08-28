@@ -2,11 +2,42 @@
 <WatchFace width="450" height="450">
     <Metadata key="CLOCK_TYPE" value="DIGITAL"/>
     <UserConfigurations>
-        <BooleanConfiguration id="show_index" displayName="show_seconds_index" defaultValue="TRUE"/>
-        <BooleanConfiguration id="show_battery" displayName="show_battery_indicator" defaultValue="TRUE"/>
-        <BooleanConfiguration id="show_hour_font_shadow" displayName="show_hour_font_shadow" defaultValue="TRUE"/>
-        <BooleanConfiguration id="show_AOD_color" displayName="show_AOD_color" defaultValue="TRUE"/>
-        <BooleanConfiguration id="AOD_font_hollow" displayName="AOD_font_hollow" defaultValue="TRUE"/>
+        <ColorConfiguration id="color_primary" displayName="color_primary" defaultValue="2">
+            <ColorOption id="0" displayName="white" colors="#FFDCDCDC"/>
+            <ColorOption id="1" displayName="gray" colors="#FF888888"/>
+            <ColorOption id="2" displayName="blue_light" colors="#FF00B8D4"/>
+            <ColorOption id="3" displayName="blue_dark" colors="#FF2962FF"/>
+            <ColorOption id="4" displayName="purple" colors="#FFAA00FF"/>
+            <ColorOption id="5" displayName="pink" colors="#FFFF80AB"/>
+            <ColorOption id="6" displayName="red" colors="#FFE91E1E"/>
+            <ColorOption id="7" displayName="orange" colors="#FFFF8225"/>
+            <ColorOption id="8" displayName="yellow" colors="#FFFFD600"/>
+            <ColorOption id="9" displayName="green" colors="#FF00E05D"/>
+        </ColorConfiguration>
+        <ColorConfiguration id="color_secondary" displayName="color_secondary" defaultValue="7">
+            <ColorOption id="0" displayName="white" colors="#FFDCDCDC"/>
+            <ColorOption id="1" displayName="gray" colors="#FF888888"/>
+            <ColorOption id="2" displayName="blue_light" colors="#FF00B8D4"/>
+            <ColorOption id="3" displayName="blue_dark" colors="#FF2962FF"/>
+            <ColorOption id="4" displayName="purple" colors="#FFAA00FF"/>
+            <ColorOption id="5" displayName="pink" colors="#FFFF80AB"/>
+            <ColorOption id="6" displayName="red" colors="#FFE91E1E"/>
+            <ColorOption id="7" displayName="orange" colors="#FFFF8225"/>
+            <ColorOption id="8" displayName="yellow" colors="#FFFFD600"/>
+            <ColorOption id="9" displayName="green" colors="#FF00E05D"/>
+        </ColorConfiguration>
+        <ColorConfiguration id="color_tertiary" displayName="color_tertiary" defaultValue="8">
+            <ColorOption id="0" displayName="white" colors="#FFDCDCDC"/>
+            <ColorOption id="1" displayName="gray" colors="#FF888888"/>
+            <ColorOption id="2" displayName="blue_light" colors="#FF00B8D4"/>
+            <ColorOption id="3" displayName="blue_dark" colors="#FF2962FF"/>
+            <ColorOption id="4" displayName="purple" colors="#FFAA00FF"/>
+            <ColorOption id="5" displayName="pink" colors="#FFFF80AB"/>
+            <ColorOption id="6" displayName="red" colors="#FFE91E1E"/>
+            <ColorOption id="7" displayName="orange" colors="#FFFF8225"/>
+            <ColorOption id="8" displayName="yellow" colors="#FFFFD600"/>
+            <ColorOption id="9" displayName="green" colors="#FF00E05D"/>
+        </ColorConfiguration>
         <ListConfiguration id="hour_color_style" displayName="hour_color_style" defaultValue="DUAL_COLOR">
             <ListOption id="SINGLE_COLOR" displayName="option_single_color"/>
             <ListOption id="DUAL_COLOR" displayName="option_dual_color"/>
@@ -21,7 +52,13 @@
             <ListOption id="STATIC" displayName="option_static"/>
             <ListOption id="ANIMATED" displayName="option_animated"/>
         </ListConfiguration>
+        <BooleanConfiguration id="show_index" displayName="show_seconds_index" defaultValue="TRUE"/>
+        <BooleanConfiguration id="show_battery" displayName="show_battery_indicator" defaultValue="TRUE"/>
+        <BooleanConfiguration id="show_hour_font_shadow" displayName="show_hour_font_shadow" defaultValue="TRUE"/>
+        <BooleanConfiguration id="show_AOD_color" displayName="show_AOD_color" defaultValue="TRUE"/>
+        <BooleanConfiguration id="AOD_font_hollow" displayName="AOD_font_hollow" defaultValue="TRUE"/>
     </UserConfigurations>
+
     <Scene>
         // ACTIVE DISPLAY
         // -----------------------------------------------------------------------------------------
@@ -108,14 +145,16 @@
                 <ListOption id="HAND_TRAIL">
                     <SecondHand resource="" x="0" y="0" width="450" height="450">
                         <Sweep frequency="SYNC_TO_DEVICE"/>
-                        <PartDraw x="0" y="0" width="450" height="450">
+                        <PartDraw x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.color_tertiary]">
                             <Arc centerX="225" centerY="225" height="450" width="450" startAngle="-180" endAngle="0">
-                                <Stroke color="#FFD4D4D4" thickness="180">
+                                <Stroke color="#FFFFFFFF" thickness="180">
                                     <SweepGradient centerX="225" centerY="225" startAngle="-180" endAngle="0" colors="#00000000 #80D4D4D4" positions="0 1"/>
                                 </Stroke>
                             </Arc>
+                        </PartDraw>
+                        <PartDraw x="0" y="0" width="450" height="450">
                             <Line startX="225" startY="225" endX="225" endY="0">
-                                <Stroke color="#FFD4D4D4" thickness="3"/>
+                                <Stroke color="[CONFIGURATION.color_secondary]" thickness="3"/>
                             </Line>
                         </PartDraw>
                     </SecondHand>
@@ -132,7 +171,7 @@
                         <BooleanOption id="TRUE">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
-                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                    <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
                                         <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
                                             <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                         </Shadow>
@@ -143,7 +182,7 @@
                         <BooleanOption id="FALSE">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
-                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                    <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
                                         <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                     </Font>
                                 </Text>
@@ -156,7 +195,7 @@
                         <BooleanOption id="TRUE">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
-                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                    <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
                                         <Shadow color="#FFD1D0D0" offsetX="4" offsetY="3" radius="1">
                                             <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                         </Shadow>
@@ -167,7 +206,7 @@
                         <BooleanOption id="FALSE">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
-                                    <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                    <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
                                         <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                     </Font>
                                 </Text>
@@ -202,7 +241,7 @@
                                 </PartText>
                             </Default>
                         </Condition>
-                        <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
+                        <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.color_secondary]"/>
                     </Group>
                 </ListOption>
             </ListConfiguration>
@@ -298,7 +337,7 @@
                             <Compare expression="Under_50">
                                 <PartDraw x="0" y="0" width="450" height="450">
                                     <RoundRectangle x="265" y="206" width="59" height="9" cornerRadiusX="5" cornerRadiusY="5">
-                                        <Fill color="#FFF57F17"/>
+                                        <Fill color="#FF973C"/>
                                         <Transform target="width" value="[BATTERY_PERCENT]*0.59"/>
                                     </RoundRectangle>
                                 </PartDraw>
@@ -455,7 +494,7 @@
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
-                                                <Outline color="#FF111111" width="4">
+                                                <Outline color="[CONFIGURATION.color_primary]" width="4">
                                                     <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                                 </Outline>
                                             </Font>
@@ -465,7 +504,7 @@
                                 <BooleanOption id="FALSE">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
-                                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                            <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
                                                 <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
                                             </Font>
                                         </Text>
@@ -479,7 +518,7 @@
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
-                                                <Outline color="#FF111111" width="4">
+                                                <Outline color="[CONFIGURATION.color_primary]" width="4">
                                                     <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                                 </Outline>
                                             </Font>
@@ -489,7 +528,7 @@
                                 <BooleanOption id="FALSE">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
-                                            <Font family="oswald_medium" size="180" color="#FF111111" weight="BOLD">
+                                            <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
                                                 <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                             </Font>
                                         </Text>
@@ -554,7 +593,7 @@
                                         </BooleanConfiguration>
                                     </Default>
                                 </Condition>
-                                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="#FFFF6A6A"/>
+                                <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.color_secondary]"/>
                             </Group>
                         </ListOption>
                     </ListConfiguration>
@@ -654,7 +693,7 @@
                     <Group name="Complication_Bar_0" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="-60" endAngle="-15">
-                                <Stroke color="#FFDD1010" thickness="17" cap="ROUND"/>
+                                <Stroke color="[CONFIGURATION.color_tertiary]" thickness="17" cap="ROUND"/>
                                 <Transform target="endAngle" value="(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN])
                         / ([COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN])) * 45 - 60"/>
                             </Arc>
@@ -696,7 +735,7 @@
                     <Group name="Complication_Bar_1" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
-                                <Stroke color="#FFDD1010" thickness="17" cap="ROUND"/>
+                                <Stroke color="[CONFIGURATION.color_tertiary]" thickness="17" cap="ROUND"/>
                                 <Transform target="endAngle" value="(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN])
                         / ([COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN])) * (-45) + 60"/>
                             </Arc>
@@ -738,7 +777,7 @@
                     <Group name="Complication_Bar_2" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="-60" endAngle="-15">
-                                <Stroke color="#FFDD1010" thickness="17" cap="ROUND"/>
+                                <Stroke color="[CONFIGURATION.color_tertiary]" thickness="17" cap="ROUND"/>
                                 <Transform target="endAngle" value="(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN])
                         / ([COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN])) * 45 - 60"/>
                             </Arc>
@@ -780,7 +819,7 @@
                     <Group name="Complication_Bar_3" x="0" y="0" width="450" height="450">"
                         <PartDraw x="0" y="0" width="450" height="450">
                             <Arc centerX="225" centerY="225" height="405" width="405" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
-                                <Stroke color="#FFDD1010" thickness="17" cap="ROUND"/>
+                                <Stroke color="[CONFIGURATION.color_tertiary]" thickness="17" cap="ROUND"/>
                                 <Transform target="endAngle" value="(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN])
                         / ([COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN])) * (-45) + 60"/>
                             </Arc>
