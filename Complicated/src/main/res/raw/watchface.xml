@@ -47,12 +47,12 @@
             <ListOption id="HAND" displayName="option_second_hand"/>
             <ListOption id="HAND_TRAIL" displayName="option_second_hand_trail"/>
         </ListConfiguration>
+        <BooleanConfiguration id="show_index" displayName="show_seconds_index" defaultValue="TRUE"/>
         <ListConfiguration id="show_heartrate" displayName="show_heartrate_indicator" defaultValue="ANIMATED">
             <ListOption id="DISABLED" displayName="option_disabled"/>
             <ListOption id="STATIC" displayName="option_static"/>
             <ListOption id="ANIMATED" displayName="option_animated"/>
         </ListConfiguration>
-        <BooleanConfiguration id="show_index" displayName="show_seconds_index" defaultValue="TRUE"/>
         <BooleanConfiguration id="show_battery" displayName="show_battery_indicator" defaultValue="TRUE"/>
         <BooleanConfiguration id="show_hour_font_shadow" displayName="show_hour_font_shadow" defaultValue="TRUE"/>
         <BooleanConfiguration id="show_AOD_color" displayName="show_AOD_color" defaultValue="TRUE"/>
@@ -677,7 +677,7 @@
         // -----------------------------------------------------------------------------------------
 
         // Top Left Arc
-        <ComplicationSlot x="0" y="0" width="185" height="135" slotId="0" supportedTypes="EMPTY RANGED_VALUE">
+        <ComplicationSlot x="0" y="0" width="185" height="135" slotId="0" supportedTypes="EMPTY RANGED_VALUE SHORT_TEXT PHOTO_IMAGE SMALL_IMAGE">
             <BoundingArc centerX="225" centerY="225" height="440" width="440" startAngle="-58" endAngle="-17" thickness="55" isRoundEdge="TRUE"/>
             <Complication type="RANGED_VALUE">
                 <Group name="RANGED_VALUE_0" x="0" y="0" width="450" height="450">
@@ -704,13 +704,134 @@
                             </Arc>
                         </PartDraw>
                     </Group>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-60" endAngle="-15">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                            <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-60" endAngle="-15">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_0" x="0" y="0" width="450" height="450">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="-60" endAngle="-15" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="-60" endAngle="-15" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-60" endAngle="-15" ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="-60" endAngle="-15" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="-60" endAngle="-15" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_0" x="0" y="0" width="450" height="450">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
                     <PartText x="0" y="0" width="450" height="450">
-                        <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-60" endAngle="-15">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="-60" endAngle="-15" ellipsis="TRUE">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
+                                <InlineImage source="COMPLICATION.PHOTO_IMAGE" width="60" height="60"/>
+                            </Font>
+                        </TextCircular>
+                    </PartText>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_0" x="0" y="0" width="450" height="450">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartText x="0" y="0" width="450" height="450">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="-60" endAngle="-15" ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <InlineImage source="COMPLICATION.SMALL_IMAGE" width="60" height="60"/>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -719,8 +840,8 @@
         </ComplicationSlot>
 
         // Top Right Arc
-        <ComplicationSlot x="265" y="0" width="185" height="135" slotId="1" supportedTypes="EMPTY RANGED_VALUE">
-            <BoundingArc centerX="-40" centerY="225" height="440" width="440" startAngle="17" endAngle="58" thickness="55" isRoundEdge="TRUE"/>
+        <ComplicationSlot x="265" y="0" width="185" height="135" slotId="1" supportedTypes="EMPTY RANGED_VALUE SHORT_TEXT PHOTO_IMAGE SMALL_IMAGE">
+            <BoundingArc centerX="-40" centerY="225" height="440" width="440" startAngle="16.9" endAngle="58" thickness="55" isRoundEdge="TRUE"/>
             <Complication type="RANGED_VALUE">
                 <Group name="RANGED_VALUE_1" x="-265" y="0" width="450" height="450">
                     <Variant mode="AMBIENT" target="alpha" value="0"/>
@@ -746,13 +867,134 @@
                             </Arc>
                         </PartDraw>
                     </Group>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="15" endAngle="60">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                            <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="15" endAngle="60">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_1" x="-265" y="0" width="450" height="450">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="15" endAngle="60" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="15" endAngle="60" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="15" endAngle="60" ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="15" endAngle="60" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="15" endAngle="60" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_1" x="-265" y="0" width="450" height="450">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
                     <PartText x="0" y="0" width="450" height="450">
-                        <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="15" endAngle="60">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="15" endAngle="60" ellipsis="TRUE">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
+                                <InlineImage source="COMPLICATION.PHOTO_IMAGE" width="60" height="60"/>
+                            </Font>
+                        </TextCircular>
+                    </PartText>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_1" x="-265" y="0" width="450" height="450">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartText x="0" y="0" width="450" height="450">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="15" endAngle="60" ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <InlineImage source="COMPLICATION.SMALL_IMAGE" width="60" height="60"/>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -761,7 +1003,7 @@
         </ComplicationSlot>
 
         // Bottom Right Arc
-        <ComplicationSlot x="265" y="315" width="185" height="135" slotId="2" supportedTypes="EMPTY RANGED_VALUE">
+        <ComplicationSlot x="265" y="315" width="185" height="135" slotId="2" supportedTypes="EMPTY RANGED_VALUE SHORT_TEXT PHOTO_IMAGE SMALL_IMAGE">
             <BoundingArc centerX="-40" centerY="-90" height="440" width="440" startAngle="122" endAngle="163" thickness="55" isRoundEdge="TRUE"/>
             <Complication type="RANGED_VALUE">
                 <Group name="RANGED_VALUE_2" x="-265" y="-315" width="450" height="450" angle="180">
@@ -788,13 +1030,134 @@
                             </Arc>
                         </PartDraw>
                     </Group>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                            <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_2" x="-265" y="-315" width="450" height="450" angle="180">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_2" x="-265" y="-315" width="450" height="450" angle="180">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
                     <PartText x="0" y="0" width="450" height="450">
-                        <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
+                                <InlineImage source="COMPLICATION.PHOTO_IMAGE" width="60" height="60"/>
+                            </Font>
+                        </TextCircular>
+                    </PartText>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_2" x="-265" y="-315" width="450" height="450" angle="180">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartText x="0" y="0" width="450" height="450">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="-15" endAngle="-60" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <InlineImage source="COMPLICATION.SMALL_IMAGE" width="60" height="60"/>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -803,7 +1166,7 @@
         </ComplicationSlot>
 
         // Bottom Left Arc
-        <ComplicationSlot x="0" y="315" width="185" height="135" slotId="3" supportedTypes="EMPTY RANGED_VALUE">
+        <ComplicationSlot x="0" y="315" width="185" height="135" slotId="3" supportedTypes="EMPTY RANGED_VALUE SHORT_TEXT PHOTO_IMAGE SMALL_IMAGE">
             <BoundingArc centerX="225" centerY="-90" height="440" width="440" startAngle="-163" endAngle="-122" thickness="55" isRoundEdge="TRUE"/>
             <Complication type="RANGED_VALUE">
                 <Group name="RANGED_VALUE_3" x="0" y="-315" width="450" height="450" angle="180">
@@ -830,13 +1193,134 @@
                             </Arc>
                         </PartDraw>
                     </Group>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                            <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_3" x="0" y="-315" width="450" height="450" angle="180">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="400" height="400" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <PartText x="0" y="0" width="450" height="450">
+                                <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </TextCircular>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
+                                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="450" height="450">
+                                        <TextCircular centerX="225" centerY="225" width="375" height="375" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_3" x="0" y="-315" width="450" height="450" angle="180">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
                     <PartText x="0" y="0" width="450" height="450">
-                        <TextCircular centerX="225" centerY="225" width="350" height="350" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
                             <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="30" height="30"/>
-                                    <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
+                                <InlineImage source="COMPLICATION.PHOTO_IMAGE" width="60" height="60"/>
+                            </Font>
+                        </TextCircular>
+                    </PartText>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_3" x="0" y="-315" width="450" height="450" angle="180">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartText x="0" y="0" width="450" height="450">
+                        <TextCircular centerX="225" centerY="225" width="370" height="370" startAngle="60" endAngle="15" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                <InlineImage source="COMPLICATION.SMALL_IMAGE" width="60" height="60"/>
                             </Font>
                         </TextCircular>
                     </PartText>
@@ -845,86 +1329,610 @@
         </ComplicationSlot>
 
         // Top Box
-        <ComplicationSlot x="135" y="60" width="180" height="80" slotId="4" supportedTypes="EMPTY LONG_TEXT">
-            <BoundingBox x="0" y="0" width="180" height="80"/>
+        <ComplicationSlot x="145" y="60" width="160" height="80" slotId="4" supportedTypes="EMPTY LONG_TEXT SHORT_TEXT RANGED_VALUE PHOTO_IMAGE SMALL_IMAGE">
+            <BoundingBox x="0" y="0" width="160" height="80"/>
             <Complication type="LONG_TEXT">
-                <Group name="LONG_TEXT_4" x="0" y="0" width="180" height="80">
+                <Group name="LONG_TEXT_4" x="0" y="0" width="160" height="80">
                     <Variant mode="AMBIENT" target="alpha" value="0"/>
-                    <PartText x="0" y="0" width="180" height="80">
-                        <TextCircular centerX="90" centerY="165" width="300" height="295" startAngle="-35" endAngle="35" ellipsis="TRUE">
-                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
-                            </Font>
-                        </TextCircular>
-                    </PartText>
-                    <PartText x="20" y="40" width="140" height="35">
-                        <Text ellipsis="TRUE">
-                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="35" height="35"/>
-                                <Template> %s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.MONOCHROMATIC_IMAGE] != null || [COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="is_long">textLength([COMPLICATION.TEXT]) &gt; 10</Expression>
+                                </Expressions>
+                                <Compare expression="is_long">
+                                    <PartText x="0" y="0" width="160" height="80">
+                                        <TextCircular centerX="80" centerY="165" width="305" height="305" startAngle="-30" endAngle="30" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="0" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="10" y="35" width="140" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="10" y="35" width="140" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="20" width="160" height="60">
+                                <Text ellipsis="TRUE" maxLines="2">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_4" x="0" y="0" width="160" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <PartText x="0" y="0" width="160" height="40">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="35" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="35" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="30" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="30" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <Group name="RANGED_VALUE_4" x="0" y="0" width="160" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <PartText x="0" y="0" width="160" height="40">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="35" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="35" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="30" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="30" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_4" x="0" y="0" width="160" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="50" y="10" width="60" height="60">
+                        <Image resource="[COMPLICATION.PHOTO_IMAGE]"/>
+                    </PartImage>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_4" x="0" y="0" width="160" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="50" y="10" width="60" height="60">
+                        <Image resource="[COMPLICATION.SMALL_IMAGE]"/>
+                    </PartImage>
                 </Group>
             </Complication>
         </ComplicationSlot>
 
         // Bottom Box
-        <ComplicationSlot x="135" y="310" width="180" height="80" slotId="5" supportedTypes="EMPTY LONG_TEXT">
-            <BoundingBox x="0" y="0" width="180" height="80"/>
+        <ComplicationSlot x="145" y="310" width="160" height="80" slotId="5" supportedTypes="EMPTY LONG_TEXT SHORT_TEXT RANGED_VALUE PHOTO_IMAGE SMALL_IMAGE">
+            <BoundingBox x="0" y="0" width="160" height="80"/>
             <Complication type="LONG_TEXT">
-                <Group name="LONG_TEXT_5" x="0" y="0" width="180" height="80">
+                <Group name="LONG_TEXT_5" x="0" y="0" width="160" height="80">
                     <Variant mode="AMBIENT" target="alpha" value="0"/>
-                    <PartText x="0" y="0" width="180" height="80">
-                        <TextCircular centerX="90" centerY="-85" width="300" height="295" startAngle="215" endAngle="145" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
-                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
-                            </Font>
-                        </TextCircular>
-                    </PartText>
-                    <PartText x="20" y="0" width="140" height="35">
-                        <Text ellipsis="TRUE">
-                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
-                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="35" height="35"/>
-                                <Template> %s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.MONOCHROMATIC_IMAGE] != null || [COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="is_long">textLength([COMPLICATION.TEXT]) &gt; 10</Expression>
+                                </Expressions>
+                                <Compare expression="is_long">
+                                    <PartText x="0" y="0" width="160" height="80">
+                                        <TextCircular centerX="80" centerY="-85" width="305" height="305" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </TextCircular>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="40" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                                </Shadow>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="10" y="5" width="140" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="10" y="5" width="140" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="0" width="160" height="60">
+                                <Text ellipsis="TRUE" maxLines="2">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <Group name="SHORT_TEXT_5" x="0" y="0" width="180" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <PartText x="0" y="40" width="160" height="40">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="5" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="5" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="10" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="10" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <Group name="RANGED_VALUE_5" x="0" y="0" width="180" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_title">[COMPLICATION.TITLE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_title">
+                            <PartText x="0" y="40" width="160" height="40">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="5" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="5" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Compare>
+                        <Default>
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                                </Expressions>
+                                <Compare expression="has_image">
+                                    <PartText x="0" y="10" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <InlineImage source="COMPLICATION.MONOCHROMATIC_IMAGE" width="40" height="40"/>
+                                                <Template> %s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="0" y="10" width="160" height="40">
+                                        <Text ellipsis="TRUE">
+                                            <Font family="roboto_medium" size="24" color="#FFD4D4D4">
+                                                <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_4" x="0" y="0" width="160" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="50" y="10" width="60" height="60">
+                        <Image resource="[COMPLICATION.PHOTO_IMAGE]"/>
+                    </PartImage>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_4" x="0" y="0" width="160" height="80">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="50" y="10" width="60" height="60">
+                        <Image resource="[COMPLICATION.SMALL_IMAGE]"/>
+                    </PartImage>
                 </Group>
             </Complication>
         </ComplicationSlot>
 
         // Left 1
-        <ComplicationSlot x="20" y="150" width="65" height="65" slotId="6" supportedTypes="EMPTY SHORT_TEXT">
+        <ComplicationSlot x="20" y="150" width="65" height="65" slotId="6" supportedTypes="EMPTY SHORT_TEXT RANGED_VALUE PHOTO_IMAGE SMALL_IMAGE">
             <BoundingBox x="0" y="0" width="65" height="65"/>
             <Complication type="SHORT_TEXT">
                 <Group name="SHORT_TEXT_6" x="0" y="0" width="65" height="65">
                     <Variant mode="AMBIENT" target="alpha" value="0"/>
-                    <PartImage x="17" y="0" width="30" height="30">
-                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartImage x="17" y="0" width="30" height="30">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+                            </PartImage>
+                            <PartText x="0" y="35" width="65" height="30">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="17" width="65" height="30">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <Group name="RANGED_VALUE_6" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartImage x="17" y="0" width="30" height="30">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+                            </PartImage>
+                            <PartText x="0" y="35" width="65" height="30">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="17" width="65" height="30">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_6" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="2" y="2" width="60" height="60">
+                        <Image resource="[COMPLICATION.PHOTO_IMAGE]"/>
                     </PartImage>
-                    <PartText x="0" y="35" width="65" height="30">
-                        <Text ellipsis="TRUE">
-                            <Font family="roboto_medium" size="22" color="#FFD4D4D4">
-                                <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                                </Shadow>
-                            </Font>
-                        </Text>
-                    </PartText>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_6" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="2" y="2" width="60" height="60">
+                        <Image resource="[COMPLICATION.SMALL_IMAGE]"/>
+                    </PartImage>
                 </Group>
             </Complication>
         </ComplicationSlot>
 
         // Left 2
-        <ComplicationSlot x="20" y="235" width="65" height="65" slotId="7" supportedTypes="EMPTY SHORT_TEXT">
+        <ComplicationSlot x="20" y="235" width="65" height="65" slotId="7" supportedTypes="EMPTY SHORT_TEXT RANGED_VALUE PHOTO_IMAGE SMALL_IMAGE">
             <BoundingBox x="0" y="0" width="65" height="65"/>
             <Complication type="SHORT_TEXT">
                 <Group name="SHORT_TEXT_7" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <Condition>
+                        <Expressions>
+                            <Expression name="has_image">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+                        </Expressions>
+                        <Compare expression="has_image">
+                            <PartImage x="17" y="0" width="30" height="30">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
+                            </PartImage>
+                            <PartText x="0" y="35" width="65" height="30">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="0" y="18" width="65" height="30">
+                                <Text ellipsis="TRUE">
+                                    <Font family="roboto_medium" size="22" color="#FFD4D4D4">
+                                        <Shadow color="#CC000001" offsetX="0" offsetY="1" radius="5">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                                        </Shadow>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </Default>
+                    </Condition>
+                </Group>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <Group name="RANGED_VALUE_7" x="0" y="0" width="65" height="65">
                     <Variant mode="AMBIENT" target="alpha" value="0"/>
                     <PartImage x="17" y="0" width="30" height="30">
                         <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]"/>
@@ -940,12 +1948,28 @@
                     </PartText>
                 </Group>
             </Complication>
+            <Complication type="PHOTO_IMAGE">
+                <Group name="PHOTO_IMAGE_7" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="2" y="2" width="60" height="60">
+                        <Image resource="[COMPLICATION.PHOTO_IMAGE]"/>
+                    </PartImage>
+                </Group>
+            </Complication>
+            <Complication type="SMALL_IMAGE">
+                <Group name="SMALL_IMAGE_7" x="0" y="0" width="65" height="65">
+                    <Variant mode="AMBIENT" target="alpha" value="0"/>
+                    <PartImage x="2" y="2" width="60" height="60">
+                        <Image resource="[COMPLICATION.SMALL_IMAGE]"/>
+                    </PartImage>
+                </Group>
+            </Complication>
         </ComplicationSlot>
 
         // Clock
-        <ComplicationSlot x="125" y="150" width="200" height="150" slotId="8" supportedTypes="EMPTY LONG_TEXT">
+        <ComplicationSlot x="125" y="150" width="200" height="150" slotId="8" supportedTypes="EMPTY SMALL_IMAGE">
             <BoundingBox x="0" y="0" width="200" height="150"/>
-            <Complication type="LONG_TEXT"/>
+            <Complication type="SMALL_IMAGE"/>
         </ComplicationSlot>
 
     </Scene>
