@@ -67,11 +67,7 @@
 
             // Background
             <PartImage x="0" y="0"  width="450" height="450">
-                <Image resource="bg_dots"/>
-            </PartImage>
-            // Mid Lines
-            <PartImage x="0" y="62" width="450" height="450">
-                <Image resource="mid_lines"/>
+                <Image resource="background"/>
             </PartImage>
 
             // Seconds Index
@@ -135,7 +131,7 @@
                 <ListOption id="HAND">
                     <SecondHand resource="" x="0" y="0" width="450" height="450">
                         <Sweep frequency="SYNC_TO_DEVICE"/>
-                        <PartDraw x="0" y="0" width="450" height="450">
+                        <PartDraw x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.color_tertiary]">
                             <Line startX="225" startY="225" endX="225" endY="0">
                                 <Stroke color="#FFD4D4D4" thickness="3"/>
                             </Line>
@@ -373,7 +369,7 @@
             <ListConfiguration id="show_heartrate">
                 <ListOption id="STATIC">
                     <PartImage x="358" y="140" width="80" height="80" scaleX="0.76" scaleY="0.76" tintColor="#B71C1C">
-                        <Image resource="icon_heart"/>
+                        <Image resource="sprite_heart"/>
                     </PartImage>
                     <PartText x="357" y="139" width="80" height="80">
                         <Text>
@@ -385,7 +381,7 @@
                 </ListOption>
                 <ListOption id="ANIMATED">
                     <PartImage x="358" y="140" width="80" height="80" scaleX="0.76" scaleY="0.76" tintColor="#B71C1C">
-                        <Image resource="icon_heart"/>
+                        <Image resource="sprite_heart"/>
                         <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
                         <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
                     </PartImage>

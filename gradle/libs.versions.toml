@@ -1,14 +1,6 @@
 [versions]
-agp = "8.5.2"
-kotlin = "1.9.0"
-playServicesWearable = "18.2.0"
-watchface = "1.2.0"
-
-[libraries]
-play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "playServicesWearable" }
-watchface = { module = "androidx.wear.watchface:watchface", version.ref = "watchface" }
+agp = "8.6.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
