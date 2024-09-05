@@ -1,23 +1,5 @@
 <resources>
     <string name="app_name">Complicated</string>
-    <string name="show_battery_indicator">Battery Indicator</string>
-    <string name="show_seconds_index">Seconds Index</string>
-    <string name="show_hour_font_shadow">Hours Font Shadow</string>
-    <string name="show_AOD_color">AOD Uses Color</string>
-    <string name="AOD_font_hollow">AOD Uses Hollow Font</string>
-
-    <string name="show_heartrate_indicator">Heart Rate Indicator</string>
-    <string name="option_disabled">Disabled</string>
-    <string name="option_static">Static</string>
-    <string name="option_animated">Animated</string>
-
-    <string name="hour_color_style">Hours Color Style</string>
-    <string name="option_single_color">Single Color</string>
-    <string name="option_dual_color">Dual Color</string>
-
-    <string name="second_hand_mode">Second Hand</string>
-    <string name="option_second_hand">Second Hand</string>
-    <string name="option_second_hand_trail">Second Hand + Trail</string>
 
     <string name="color_primary">Primary Color</string>
     <string name="color_secondary">Secondary Color</string>
@@ -32,4 +14,35 @@
     <string name="orange">Orange</string>
     <string name="yellow">Yellow</string>
     <string name="green">Green</string>
+
+    <string name="option_disabled">Disabled</string>
+    <string name="option_enabled">Enabled</string>
+
+    <string name="hour_color_style">Hours Color Style</string>
+    <string name="option_single_color">Single Color</string>
+    <string name="option_dual_color">Dual Color</string>
+
+    <string name="second_hand_mode">Second Hand</string>
+    <string name="option_second_hand">Second Hand</string>
+    <string name="option_second_hand_trail">Second Hand + Trail</string>
+
+    <string name="show_seconds_index">Seconds Index</string>
+
+    <string name="show_heartrate_indicator">Heart Rate Indicator</string>
+    <string name="option_static">Static</string>
+    <string name="option_animated">Animated</string>
+
+    <string name="show_battery_indicator">Battery Indicator</string>
+
+    <string name="hour_font_style">Hours Font Style</string>
+    <string name="option_font_flat">Flat</string>
+    <string name="option_font_shadow">Shadowed</string>
+
+    <string name="AOD_color_style">AOD Color</string>
+    <string name="option_font_white">White</string>
+    <string name="option_font_colored">Colored</string>
+
+    <string name="AOD_font_style">AOD Font Style</string>
+    <string name="option_font_filled">Filled</string>
+    <string name="option_font_hollow">Hollow</string>
 </resources>

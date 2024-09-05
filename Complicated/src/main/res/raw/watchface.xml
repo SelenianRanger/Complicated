@@ -38,25 +38,40 @@
             <ColorOption id="8" displayName="yellow" colors="#FFFFD600"/>
             <ColorOption id="9" displayName="green" colors="#FF00E05D"/>
         </ColorConfiguration>
-        <ListConfiguration id="hour_color_style" displayName="hour_color_style" defaultValue="DUAL_COLOR">
-            <ListOption id="SINGLE_COLOR" displayName="option_single_color"/>
-            <ListOption id="DUAL_COLOR" displayName="option_dual_color"/>
+        <ListConfiguration id="hour_color_style" displayName="hour_color_style" icon="icon_hour_dual_color" defaultValue="DUAL_COLOR">
+            <ListOption id="SINGLE_COLOR" displayName="option_single_color" icon="icon_hour_single_color"/>
+            <ListOption id="DUAL_COLOR" displayName="option_dual_color" icon="icon_hour_dual_color"/>
         </ListConfiguration>
-        <ListConfiguration id="show_second_hand" displayName="second_hand_mode" defaultValue="HAND_TRAIL">
-            <ListOption id="DISABLED" displayName="option_disabled"/>
-            <ListOption id="HAND" displayName="option_second_hand"/>
-            <ListOption id="HAND_TRAIL" displayName="option_second_hand_trail"/>
+        <ListConfiguration id="hour_font_style" displayName="hour_font_style" icon="icon_hour_shadow" defaultValue="SHADOW">
+            <ListOption id="FLAT" displayName="option_font_flat" icon="icon_hour_single_color"/>
+            <ListOption id="SHADOW" displayName="option_font_shadow" icon="icon_hour_shadow"/>
         </ListConfiguration>
-        <BooleanConfiguration id="show_index" displayName="show_seconds_index" defaultValue="TRUE"/>
-        <ListConfiguration id="show_heartrate" displayName="show_heartrate_indicator" defaultValue="ANIMATED">
-            <ListOption id="DISABLED" displayName="option_disabled"/>
-            <ListOption id="STATIC" displayName="option_static"/>
-            <ListOption id="ANIMATED" displayName="option_animated"/>
+        <ListConfiguration id="show_second_hand" displayName="second_hand_mode" icon="icon_second_hand_trail" defaultValue="HAND_TRAIL">
+            <ListOption id="DISABLED" displayName="option_disabled" icon="icon_disabled"/>
+            <ListOption id="HAND" displayName="option_second_hand" icon="icon_second_hand"/>
+            <ListOption id="HAND_TRAIL" displayName="option_second_hand_trail" icon="icon_second_hand_trail"/>
         </ListConfiguration>
-        <BooleanConfiguration id="show_battery" displayName="show_battery_indicator" defaultValue="TRUE"/>
-        <BooleanConfiguration id="show_hour_font_shadow" displayName="show_hour_font_shadow" defaultValue="TRUE"/>
-        <BooleanConfiguration id="show_AOD_color" displayName="show_AOD_color" defaultValue="TRUE"/>
-        <BooleanConfiguration id="AOD_font_hollow" displayName="AOD_font_hollow" defaultValue="TRUE"/>
+        <ListConfiguration id="show_index" displayName="show_seconds_index" icon="icon_second_hand" defaultValue="ENABLED">
+            <ListOption id="DISABLED" displayName="option_disabled" icon="icon_disabled"/>
+            <ListOption id="ENABLED" displayName="option_enabled" icon="icon_second_hand"/>
+        </ListConfiguration>
+        <ListConfiguration id="show_battery" displayName="show_battery_indicator" icon="icon_battery" defaultValue="ENABLED">
+            <ListOption id="DISABLED" displayName="option_disabled" icon="icon_disabled"/>
+            <ListOption id="ENABLED" displayName="option_enabled" icon="icon_battery"/>
+        </ListConfiguration>
+        <ListConfiguration id="show_heartrate" displayName="show_heartrate_indicator" icon="icon_heartrate" defaultValue="ANIMATED">
+            <ListOption id="DISABLED" displayName="option_disabled" icon="icon_disabled"/>
+            <ListOption id="STATIC" displayName="option_static" icon="icon_heartrate"/>
+            <ListOption id="ANIMATED" displayName="option_animated" icon="icon_heartrate_animated"/>
+        </ListConfiguration>
+        <ListConfiguration id="AOD_color_style" displayName="AOD_color_style" icon="icon_aod_colored" defaultValue="COLORED">
+            <ListOption id="WHITE" displayName="option_font_white" icon="icon_aod_white"/>
+            <ListOption id="COLORED" displayName="option_font_colored" icon="icon_aod_colored"/>
+        </ListConfiguration>
+        <ListConfiguration id="AOD_font_style" displayName="AOD_font_style" icon="icon_aod_hollow" defaultValue="HOLLOW">
+            <ListOption id="FILLED" displayName="option_font_filled" icon="icon_aod_white"/>
+            <ListOption id="HOLLOW" displayName="option_font_hollow" icon="icon_aod_hollow"/>
+        </ListConfiguration>
     </UserConfigurations>
 
     <Scene>
@@ -71,8 +86,8 @@
             </PartImage>
 
             // Seconds Index
-            <BooleanConfiguration id="show_index">
-                <BooleanOption id="TRUE">
+            <ListConfiguration id="show_index">
+                <ListOption id="ENABLED">
                     // Index Behind
                     <Group name="Index_Behind" x="0" y="0" width="450" height="450">
                         <Transform target="alpha" value="255 - [MILLISECOND]/1000*128"/>
@@ -123,8 +138,8 @@
                             </PartDraw>
                         </SecondHand>
                     </Group>
-                </BooleanOption>
-            </BooleanConfiguration>
+                </ListOption>
+            </ListConfiguration>
 
             // Second Hand
             <ListConfiguration id="show_second_hand">
@@ -163,8 +178,17 @@
                     <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                 </Expressions>
                 <Compare expression="Is_24h">
-                    <BooleanConfiguration id="show_hour_font_shadow">
-                        <BooleanOption id="TRUE">
+                    <ListConfiguration id="hour_font_style">
+                        <ListOption id="FLAT">
+                            <PartText x="53" y="106" width="220" height="220">
+                                <Text>
+                                    <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
+                                        <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </ListOption>
+                        <ListOption id="SHADOW">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
                                     <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
@@ -174,21 +198,21 @@
                                     </Font>
                                 </Text>
                             </PartText>
-                        </BooleanOption>
-                        <BooleanOption id="FALSE">
+                        </ListOption>
+                    </ListConfiguration>
+                </Compare>
+                <Default>
+                    <ListConfiguration id="hour_font_style">
+                        <ListOption id="FLAT">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
                                     <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
-                                        <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                        <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                     </Font>
                                 </Text>
                             </PartText>
-                        </BooleanOption>
-                    </BooleanConfiguration>
-                </Compare>
-                <Default>
-                    <BooleanConfiguration id="show_hour_font_shadow">
-                        <BooleanOption id="TRUE">
+                        </ListOption>
+                        <ListOption id="SHADOW">
                             <PartText x="53" y="106" width="220" height="220">
                                 <Text>
                                     <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
@@ -198,17 +222,8 @@
                                     </Font>
                                 </Text>
                             </PartText>
-                        </BooleanOption>
-                        <BooleanOption id="FALSE">
-                            <PartText x="53" y="106" width="220" height="220">
-                                <Text>
-                                    <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
-                                        <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                    </Font>
-                                </Text>
-                            </PartText>
-                        </BooleanOption>
-                    </BooleanConfiguration>
+                        </ListOption>
+                    </ListConfiguration>
                 </Default>
             </Condition>
             <ListConfiguration id="hour_color_style">
@@ -275,7 +290,8 @@
             </Condition>
 
             // Date
-            <PartText x="250" y="135" width="110" height="50">
+            <PartText x="255" y="145" width="100" height="30">
+                <Launch target="CALENDAR"/>
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -284,7 +300,8 @@
                     </Font>
                 </Text>
             </PartText>
-            <PartText x="250" y="160" width="110" height="50">
+            <PartText x="255" y="170" width="100" height="30">
+                <Launch target="CALENDAR"/>
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -298,11 +315,12 @@
             </PartText>
 
             // Battery Indicator
-            <BooleanConfiguration id="show_battery">
-                <BooleanOption id="TRUE">
+            <ListConfiguration id="show_battery">
+                <ListOption id="ENABLED">
                     // Indicator Background
-                    <PartDraw x="0" y="0" width="450" height="450">
-                        <RoundRectangle x="262" y="203" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
+                    <PartDraw x="260" y="200" width="85" height="20">
+                        <Launch target="BATTERY_STATUS"/>
+                        <RoundRectangle x="2" y="3" width="65" height="15" cornerRadiusX="7" cornerRadiusY="7">
                             <Fill color="#FF333333"/>
                         </RoundRectangle>
                     </PartDraw>
@@ -362,13 +380,14 @@
                             <Fill color="#FFC0C0C0"/>
                         </Rectangle>
                     </PartDraw>
-                </BooleanOption>
-            </BooleanConfiguration>
+                </ListOption>
+            </ListConfiguration>
 
             // Heart Rate
             <ListConfiguration id="show_heartrate">
                 <ListOption id="STATIC">
                     <PartImage x="358" y="140" width="80" height="80" scaleX="0.76" scaleY="0.76" tintColor="#B71C1C">
+                        <Launch target="HEALTH_HEART_RATE"/>
                         <Image resource="sprite_heart"/>
                     </PartImage>
                     <PartText x="357" y="139" width="80" height="80">
@@ -381,6 +400,7 @@
                 </ListOption>
                 <ListOption id="ANIMATED">
                     <PartImage x="358" y="140" width="80" height="80" scaleX="0.76" scaleY="0.76" tintColor="#B71C1C">
+                        <Launch target="HEALTH_HEART_RATE"/>
                         <Image resource="sprite_heart"/>
                         <Transform target="scaleX" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
                         <Transform target="scaleY" value="0.76 + sin(([UTC_TIMESTAMP] % (60000/[HEART_RATE])) / (60000/[HEART_RATE]) * 6.28) * 0.03"/>
@@ -423,15 +443,24 @@
             <Variant mode="AMBIENT" target="alpha" value="255"/>
 
             // Hour
-            <BooleanConfiguration id="show_AOD_color">
-                <BooleanOption id="FALSE">
+            <ListConfiguration id="AOD_color_style">
+                <ListOption id="WHITE">
                     <Condition>
                         <Expressions>
                             <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                         </Expressions>
                         <Compare expression="Is_24h">
-                            <BooleanConfiguration id="AOD_font_hollow">
-                                <BooleanOption id="TRUE">
+                            <ListConfiguration id="AOD_font_style">
+                                <ListOption id="FILLED">
+                                    <PartText x="53" y="110" width="220" height="220">
+                                        <Text>
+                                            <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </ListOption>
+                                <ListOption id="HOLLOW">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
@@ -441,21 +470,21 @@
                                             </Font>
                                         </Text>
                                     </PartText>
-                                </BooleanOption>
-                                <BooleanOption id="FALSE">
+                                </ListOption>
+                            </ListConfiguration>
+                        </Compare>
+                        <Default>
+                            <ListConfiguration id="AOD_font_style">
+                                <ListOption id="FILLED">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
-                                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                             </Font>
                                         </Text>
                                     </PartText>
-                                </BooleanOption>
-                            </BooleanConfiguration>
-                        </Compare>
-                        <Default>
-                            <BooleanConfiguration id="AOD_font_hollow">
-                                <BooleanOption id="TRUE">
+                                </ListOption>
+                                <ListOption id="HOLLOW">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
@@ -465,28 +494,28 @@
                                             </Font>
                                         </Text>
                                     </PartText>
-                                </BooleanOption>
-                                <BooleanOption id="FALSE">
-                                    <PartText x="53" y="110" width="220" height="220">
-                                        <Text>
-                                            <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
-                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </BooleanOption>
-                            </BooleanConfiguration>
+                                </ListOption>
+                            </ListConfiguration>
                         </Default>
                     </Condition>
-                </BooleanOption>
-                <BooleanOption id="TRUE">
+                </ListOption>
+                <ListOption id="COLORED">
                     <Condition>
                         <Expressions>
                             <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                         </Expressions>
                         <Compare expression="Is_24h">
-                            <BooleanConfiguration id="AOD_font_hollow">
-                                <BooleanOption id="TRUE">
+                            <ListConfiguration id="AOD_font_style">
+                                <ListOption id="HOLLOW">
+                                    <ListOption id="FILLED">
+                                        <PartText x="53" y="110" width="220" height="220">
+                                            <Text>
+                                                <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
+                                                    <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                </Font>
+                                            </Text>
+                                        </PartText>
+                                    </ListOption>
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
@@ -496,21 +525,21 @@
                                             </Font>
                                         </Text>
                                     </PartText>
-                                </BooleanOption>
-                                <BooleanOption id="FALSE">
+                                </ListOption>
+                            </ListConfiguration>
+                        </Compare>
+                        <Default>
+                            <ListConfiguration id="AOD_font_style">
+                                <ListOption id="FILLED">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
-                                                <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                             </Font>
                                         </Text>
                                     </PartText>
-                                </BooleanOption>
-                            </BooleanConfiguration>
-                        </Compare>
-                        <Default>
-                            <BooleanConfiguration id="AOD_font_hollow">
-                                <BooleanOption id="TRUE">
+                                </ListOption>
+                                <ListOption id="HOLLOW">
                                     <PartText x="53" y="110" width="220" height="220">
                                         <Text>
                                             <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
@@ -520,17 +549,8 @@
                                             </Font>
                                         </Text>
                                     </PartText>
-                                </BooleanOption>
-                                <BooleanOption id="FALSE">
-                                    <PartText x="53" y="110" width="220" height="220">
-                                        <Text>
-                                            <Font family="oswald_medium" size="180" color="[CONFIGURATION.color_primary]" weight="BOLD">
-                                                <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </BooleanOption>
-                            </BooleanConfiguration>
+                                </ListOption>
+                            </ListConfiguration>
                         </Default>
                     </Condition>
                     <ListConfiguration id="hour_color_style">
@@ -541,8 +561,17 @@
                                         <Expression name="Is_24h">[IS_24_HOUR_MODE]</Expression>
                                     </Expressions>
                                     <Compare expression="Is_24h">
-                                        <BooleanConfiguration id="AOD_font_hollow">
-                                            <BooleanOption id="TRUE">
+                                        <ListConfiguration id="AOD_font_style">
+                                            <ListOption id="FILLED">
+                                                <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
+                                                    <Text>
+                                                        <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
+                                                            <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                        </Font>
+                                                    </Text>
+                                                </PartText>
+                                            </ListOption>
+                                            <ListOption id="HOLLOW">
                                                 <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
                                                     <Text>
                                                         <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
@@ -552,21 +581,21 @@
                                                         </Font>
                                                     </Text>
                                                 </PartText>
-                                            </BooleanOption>
-                                            <BooleanOption id="FALSE">
+                                            </ListOption>
+                                        </ListConfiguration>
+                                    </Compare>
+                                    <Default>
+                                        <ListConfiguration id="AOD_font_style">
+                                            <ListOption id="FILLED">
                                                 <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
                                                     <Text>
                                                         <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
-                                                            <Template>%d<Parameter expression="[HOUR_0_23]"/></Template>
+                                                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
                                                         </Font>
                                                     </Text>
                                                 </PartText>
-                                            </BooleanOption>
-                                        </BooleanConfiguration>
-                                    </Compare>
-                                    <Default>
-                                        <BooleanConfiguration id="AOD_font_hollow">
-                                            <BooleanOption id="TRUE">
+                                            </ListOption>
+                                            <ListOption id="HOLLOW">
                                                 <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
                                                     <Text>
                                                         <Font family="oswald_medium" size="180" color="#00000000" weight="BOLD">
@@ -576,29 +605,29 @@
                                                         </Font>
                                                     </Text>
                                                 </PartText>
-                                            </BooleanOption>
-                                            <BooleanOption id="FALSE">
-                                                <PartText x="53" y="110" width="220" height="220" renderMode="MASK">
-                                                    <Text>
-                                                        <Font family="oswald_medium" size="180" color="#FFFFFFFF" weight="BOLD">
-                                                            <Template>%d<Parameter expression="[HOUR_1_12]"/></Template>
-                                                        </Font>
-                                                    </Text>
-                                                </PartText>
-                                            </BooleanOption>
-                                        </BooleanConfiguration>
+                                            </ListOption>
+                                        </ListConfiguration>
                                     </Default>
                                 </Condition>
                                 <HourHand resource="mask" x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.color_secondary]"/>
                             </Group>
                         </ListOption>
                     </ListConfiguration>
-                </BooleanOption>
-            </BooleanConfiguration>
+                </ListOption>
+            </ListConfiguration>
 
             // Minute
-            <BooleanConfiguration id="AOD_font_hollow">
-                <BooleanOption id="TRUE">
+            <ListConfiguration id="AOD_font_style">
+                <ListOption id="FILLED">
+                    <PartText x="250" y="205" width="110" height="110">
+                        <Text>
+                            <Font family="oswald_medium" size="90" color="#FFFFFFFF">
+                                <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </ListOption>
+                <ListOption id="HOLLOW">
                     <PartText x="250" y="205" width="110" height="110">
                         <Text>
                             <Font family="oswald_medium" size="90" color="#00000000">
@@ -608,18 +637,8 @@
                             </Font>
                         </Text>
                     </PartText>
-                </BooleanOption>
-                <BooleanOption id="FALSE">
-                    <PartText x="250" y="205" width="110" height="110">
-                        <Text>
-                            <Font family="oswald_medium" size="90" color="#FFFFFFFF">
-                                <Template>%s<Parameter expression="[MINUTE_Z]"/></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                </BooleanOption>
-            </BooleanConfiguration>
-
+                </ListOption>
+            </ListConfiguration>
 
             // AM/PM
             <Condition>
@@ -645,7 +664,7 @@
             </Condition>
 
             // Date
-            <PartText x="250" y="135" width="110" height="50">
+            <PartText x="255" y="145" width="100" height="30">
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -654,7 +673,7 @@
                     </Font>
                 </Text>
             </PartText>
-            <PartText x="250" y="160" width="110" height="50">
+            <PartText x="255" y="170" width="100" height="30">
                 <Text>
                     <Font family="roboto_medium" size="26" color="#FFFFFFFF">
                         <Upper>
@@ -1963,8 +1982,8 @@
         </ComplicationSlot>
 
         // Clock
-        <ComplicationSlot x="125" y="150" width="200" height="150" slotId="8" supportedTypes="EMPTY SMALL_IMAGE">
-            <BoundingBox x="0" y="0" width="200" height="150"/>
+        <ComplicationSlot x="100" y="150" width="150" height="150" slotId="8" supportedTypes="EMPTY SMALL_IMAGE">
+            <BoundingBox x="0" y="0" width="150" height="150"/>
             <Complication type="SMALL_IMAGE"/>
         </ComplicationSlot>
 
