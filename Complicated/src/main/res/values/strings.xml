@@ -15,34 +15,23 @@
     <string name="yellow">Yellow</string>
     <string name="green">Green</string>
 
+    <string name="background">Background</string>
+    <string name="bg_blank">Blank</string>
+    <string name="bg_dots">Dots</string>
+    <string name="bg_panel">Panel</string>
+
     <string name="option_disabled">Disabled</string>
-    <string name="option_enabled">Enabled</string>
 
     <string name="hour_color_style">Hours Color Style</string>
     <string name="option_single_color">Single Color</string>
-    <string name="option_dual_color">Dual Color</string>
+    <string name="option_mask_liquid">Liquid</string>
+    <string name="option_mask_gradient">Gradient</string>
 
     <string name="second_hand_mode">Second Hand</string>
     <string name="option_second_hand">Second Hand</string>
     <string name="option_second_hand_trail">Second Hand + Trail</string>
 
-    <string name="show_seconds_index">Seconds Index</string>
-
     <string name="show_heartrate_indicator">Heart Rate Indicator</string>
     <string name="option_static">Static</string>
     <string name="option_animated">Animated</string>
-
-    <string name="show_battery_indicator">Battery Indicator</string>
-
-    <string name="hour_font_style">Hours Font Style</string>
-    <string name="option_font_flat">Flat</string>
-    <string name="option_font_shadow">Shadowed</string>
-
-    <string name="AOD_color_style">AOD Color</string>
-    <string name="option_font_white">White</string>
-    <string name="option_font_colored">Colored</string>
-
-    <string name="AOD_font_style">AOD Font Style</string>
-    <string name="option_font_filled">Filled</string>
-    <string name="option_font_hollow">Hollow</string>
 </resources>
